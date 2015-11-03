@@ -27,10 +27,9 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_unauthorized">You must sign in again</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="activity_login_btn_password_recover">Forgot your password?</string>
     <string name="activity_login_recover_password_dialog_msg">Enter you email address to recover your password:</string>
-
-
 
 </resources>
