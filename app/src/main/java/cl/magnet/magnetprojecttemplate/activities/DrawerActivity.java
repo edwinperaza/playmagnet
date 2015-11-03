@@ -128,7 +128,7 @@ public class DrawerActivity extends AppCompatActivity
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setMessage(R.string.logout_confirmation)
                     .setPositiveButton(
-                            R.string.ok,
+                            android.R.string.ok,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -139,7 +139,7 @@ public class DrawerActivity extends AppCompatActivity
                                 }
                             })
                     .setNegativeButton(
-                            R.string.cancel,
+                            android.R.string.cancel,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
