@@ -109,20 +109,10 @@ public class LoginActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
@@ -134,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             showProgress(true);
 
-            //TODO: Request login to API
+            //TODO: Request login on API
             Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -143,16 +133,6 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
         }
 
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
     }
 
     /**
@@ -236,6 +216,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void callRecoverPasswordWebservice(String email) {
         //TODO: Perform password recovery on API
+    }
+
+    public static boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.contains("@");
     }
 
 }
