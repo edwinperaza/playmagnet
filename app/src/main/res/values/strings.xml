@@ -25,7 +25,8 @@
     <string name="action_register">Register</string>
     <string name="registration_succeeded">Registration succeeded</string>
     <string name="prompt_password_confirmation">Repeat Password</string>
-    <string name="prompt_name">Name</string>
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
 
     <!-- Error -->
     <string name="error_invalid_email">This email address is invalid</string>
@@ -34,6 +35,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_unauthorized">You must sign in again</string>
+    <string name="error_unknown">There is an unknown error</string>
 
     <string name="logout_confirmation">Are you sure you want to log out?</string>
 

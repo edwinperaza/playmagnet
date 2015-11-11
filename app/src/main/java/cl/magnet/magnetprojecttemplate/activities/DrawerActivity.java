@@ -2,7 +2,6 @@ package cl.magnet.magnetprojecttemplate.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +13,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +21,7 @@ import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.fragments.Section1Fragment;
 import cl.magnet.magnetprojecttemplate.fragments.Section2Fragment;
 
-public class DrawerActivity extends AppCompatActivity
+public class DrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         Section1Fragment.OnFragmentInteractionListener,
         Section2Fragment.OnFragmentInteractionListener{
@@ -132,10 +130,7 @@ public class DrawerActivity extends AppCompatActivity
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
+                                    startActivityClosingAllOthers(LoginActivity.class);
                                 }
                             })
                     .setNegativeButton(

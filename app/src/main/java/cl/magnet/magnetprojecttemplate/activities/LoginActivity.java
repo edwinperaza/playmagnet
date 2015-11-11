@@ -4,11 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -22,20 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONObject;
-
 import cl.magnet.magnetprojecttemplate.R;
-import cl.magnet.magnetrestclient.VolleyErrorHelper;
-import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     // UI references.
     private EditText mEmailView;
@@ -125,10 +116,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
 
             //TODO: Request login on API
-            Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+            startActivityClosingAllOthers(DrawerActivity.class);
 
             showProgress(false);
         }
@@ -172,8 +160,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showRegister() {
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
     }
 
     protected void recoverPassword() {

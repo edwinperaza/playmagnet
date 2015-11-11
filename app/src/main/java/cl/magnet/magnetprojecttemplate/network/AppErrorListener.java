@@ -3,6 +3,7 @@ package cl.magnet.magnetprojecttemplate.network;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -18,6 +19,9 @@ import cl.magnet.magnetrestclient.MagnetErrorListener;
  * Created by yaniv on 11/3/15.
  */
 public class AppErrorListener extends MagnetErrorListener {
+
+    public static final String ACTION_UNAUTHORIZED = "AppErrorListener.Unauthorized";
+    public static final String ACTION_UPGRADE_REQUIRED = "AppErrorListener.UpgradeRequired";
 
     public static final int HTTP_UNAUTHORIZED = 401;
     public static final int HTTP_UPGRADE_REQUIRED = 426;
@@ -44,31 +48,20 @@ public class AppErrorListener extends MagnetErrorListener {
         }
     }
 
-    //Finish current activty and clear from back stack. Then start next activity.
-    public void finishAndGoTo(Class klass){
-        Intent intent = new Intent(mContext, klass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(intent);
-        ((Activity) mContext).finish();
-    }
-
     @Override
     public <T> void onUnauthorizedError(VolleyError volleyError, Request<T> request) {
         Toast.makeText(mContext, R.string.error_unauthorized, Toast.LENGTH_SHORT).show();
-
         (new cl.magnet.usermanager.UserManager<>(mContext)).logout();
-
-        finishAndGoTo(LoginActivity.class);
-
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UNAUTHORIZED));
     }
 
     @Override
     public void onUpgradeRequiredError(VolleyError volleyError) {
-        finishAndGoTo(UpgradeRequiredActivity.class);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UPGRADE_REQUIRED));
     }
 
     @Override
     public void onUnhandledError(VolleyError volleyError) {
-
+        Toast.makeText(mContext, R.string.error_unknown, Toast.LENGTH_SHORT).show();
     }
 }

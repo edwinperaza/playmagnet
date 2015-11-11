@@ -1,23 +1,27 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import cl.magnet.magnetprojecttemplate.R;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
-public class RegisterActivity extends AppCompatActivity {
+import cl.magnet.magnetprojecttemplate.R;
+import cl.magnet.magnetprojecttemplate.models.user.UserManager;
+import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import cl.magnet.magnetrestclient.VolleyManager;
+
+public class RegisterActivity extends BaseActivity {
 
     // UI references.
-    private EditText mNameView;
+    private EditText mFirstNameView;
+    private EditText mLastNameView;
     private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmationView;
@@ -28,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // Set up the register form.
-        mNameView = (EditText) findViewById(R.id.name);
+        mFirstNameView = (EditText) findViewById(R.id.first_name);
+        mLastNameView = (EditText) findViewById(R.id.last_name);
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordConfirmationView = (EditText) findViewById(R.id.password_confirmation);
@@ -50,7 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the register attempt.
-        String name = mNameView.getText().toString();
+        String firstName = mFirstNameView.getText().toString();
+        String lastName = mLastNameView.getText().toString();
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String passwordConfirmation = mPasswordConfirmationView.getText().toString();
@@ -88,10 +94,17 @@ public class RegisterActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid name.
-        if (TextUtils.isEmpty(name)) {
-            mNameView.setError(getString(R.string.error_field_required));
-            focusView = mNameView;
+        // Check for a valid last name.
+        if (TextUtils.isEmpty(lastName)) {
+            mLastNameView.setError(getString(R.string.error_field_required));
+            focusView = mLastNameView;
+            cancel = true;
+        }
+
+        // Check for a valid first name.
+        if (TextUtils.isEmpty(firstName)) {
+            mFirstNameView.setError(getString(R.string.error_field_required));
+            focusView = mFirstNameView;
             cancel = true;
         }
 
@@ -100,7 +113,19 @@ public class RegisterActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            Toast.makeText(getApplicationContext(), R.string.registration_succeeded, Toast.LENGTH_SHORT).show();
+
+            Response.Listener listener = new Response.Listener() {
+                @Override
+                public void onResponse(Object response) {
+                    showToast(R.string.registration_succeeded);
+                }
+            };
+
+            AppErrorListener errorListener = new AppErrorListener(getApplicationContext());
+
+            Request request = UserManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
+            VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
+
         }
 
     }
