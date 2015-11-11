@@ -19,7 +19,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_up">Sign up</string>
     <string name="activity_login_btn_password_recover">Forgot your password?</string>
-    <string name="activity_login_recover_password_dialog_msg">Enter you email address to recover your password:</string>
+    <string name="activity_login_recover_password_dialog_msg">Enter your email address to recover your password:</string>
 
     <!-- Strings related to register -->
     <string name="action_register">Register</string>
@@ -36,6 +36,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_unauthorized">You must sign in again</string>
     <string name="error_unknown">There is an unknown error</string>
+    <string name="wrong_credentials">Invalid email or password</string>
 
     <string name="logout_confirmation">Are you sure you want to log out?</string>
 

@@ -113,7 +113,6 @@ public class RegisterActivity extends BaseActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-
             Response.Listener listener = new Response.Listener() {
                 @Override
                 public void onResponse(Object response) {
@@ -125,7 +124,6 @@ public class RegisterActivity extends BaseActivity {
 
             Request request = UserManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
-
         }
 
     }

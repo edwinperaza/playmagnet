@@ -16,6 +16,8 @@ import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 public class UserManager extends APIManager {
 
     private static final String USER_API_URL = BASE_URL + API_URL + "user/";
+    private static final String LOGIN_API_URL = USER_API_URL + "login/";
+    private static final String LOGOUT_API_URL = USER_API_URL + "logout/";
 
     public static String FIRST_NAME = "first_name";
     public static String LAST_NAME = "last_name";
@@ -54,4 +56,18 @@ public class UserManager extends APIManager {
     }
 
 
+    public static JsonObjectRequest userLoginRequest(String email, String password, Response.Listener listener, AppErrorListener errorListener) {
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put(EMAIL, email);
+            params.put(PASSWORD, password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new JsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, listener, errorListener);
+
+    }
 }

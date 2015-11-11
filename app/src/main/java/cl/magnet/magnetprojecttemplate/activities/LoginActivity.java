@@ -21,7 +21,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import cl.magnet.magnetprojecttemplate.R;
+import cl.magnet.magnetprojecttemplate.models.user.UserManager;
+import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -100,6 +108,12 @@ public class LoginActivity extends BaseActivity {
         boolean cancel = false;
         View focusView = null;
 
+        // Check for a valid password.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -115,10 +129,30 @@ public class LoginActivity extends BaseActivity {
         } else {
             showProgress(true);
 
-            //TODO: Request login on API
-            startActivityClosingAllOthers(DrawerActivity.class);
+            Response.Listener listener = new Response.Listener() {
+                @Override
+                public void onResponse(Object response) {
+                    showProgress(false);
+                    startActivityClosingAllOthers(DrawerActivity.class);
+                }
+            };
 
-            showProgress(false);
+            AppErrorListener errorListener = new AppErrorListener(getApplicationContext()){
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    super.onErrorResponse(error);
+                    showProgress(false);
+                }
+                @Override
+                public void onUnauthorizedError(VolleyError error, Request request) {
+                    showToast(R.string.wrong_credentials);
+                    showProgress(false);
+                }
+            };
+
+            Request request = UserManager.userLoginRequest(email, password, listener, errorListener);
+            VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
+
         }
 
     }
