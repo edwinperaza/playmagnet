@@ -1,19 +1,16 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 
 import cl.magnet.magnetprojecttemplate.R;
-import cl.magnet.magnetprojecttemplate.models.user.UserManager;
+import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 import cl.magnet.magnetrestclient.VolleyManager;
 
@@ -122,7 +119,7 @@ public class RegisterActivity extends BaseActivity {
 
             AppErrorListener errorListener = new AppErrorListener(getApplicationContext());
 
-            Request request = UserManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
+            Request request = UserRequestManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 

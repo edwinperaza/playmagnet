@@ -13,7 +13,10 @@ import com.android.volley.VolleyError;
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.activities.LoginActivity;
 import cl.magnet.magnetprojecttemplate.activities.UpgradeRequiredActivity;
+import cl.magnet.magnetprojecttemplate.models.user.User;
+import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
+import cl.magnet.usermanager.UserManager;
 
 /**
  * Created by yaniv on 11/3/15.
@@ -51,7 +54,10 @@ public class AppErrorListener extends MagnetErrorListener {
     @Override
     public <T> void onUnauthorizedError(VolleyError volleyError, Request<T> request) {
         Toast.makeText(mContext, R.string.error_unauthorized, Toast.LENGTH_SHORT).show();
-        (new cl.magnet.usermanager.UserManager<>(mContext)).logout();
+
+        //TODO: Use method UserManager.logout. Example: (new UserManager<User>(mContext)).logout();
+        PrefsManager.clearPrefs(mContext);
+
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UNAUTHORIZED));
     }
 

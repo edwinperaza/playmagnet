@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -21,15 +20,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import cl.magnet.magnetprojecttemplate.R;
-import cl.magnet.magnetprojecttemplate.models.user.UserManager;
+import cl.magnet.magnetprojecttemplate.models.user.User;
+import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.VolleyManager;
+import cl.magnet.usermanager.UserManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -102,8 +103,8 @@ public class LoginActivity extends BaseActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -133,6 +134,10 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void onResponse(Object response) {
                     showProgress(false);
+
+                    //TODO: Use method UserManager.logInUser loading user from database
+                    PrefsManager.saveUserCredentials(getApplicationContext(), email, password);
+
                     startActivityClosingAllOthers(DrawerActivity.class);
                 }
             };
@@ -150,7 +155,7 @@ public class LoginActivity extends BaseActivity {
                 }
             };
 
-            Request request = UserManager.userLoginRequest(email, password, listener, errorListener);
+            Request request = UserRequestManager.userLoginRequest(email, password, listener, errorListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
 
         }

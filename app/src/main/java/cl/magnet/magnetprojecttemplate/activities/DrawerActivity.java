@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.fragments.Section1Fragment;
 import cl.magnet.magnetprojecttemplate.fragments.Section2Fragment;
+import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 
 public class DrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -55,6 +56,12 @@ public class DrawerActivity extends BaseActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mainFrame, fragment);
         ft.commit();
+
+        //TODO: Use method UserManager.isUserLogged instead
+        if(!PrefsManager.isUserLogged(getApplicationContext())){
+            startActivityClosingAllOthers(LoginActivity.class);
+        }
+
     }
 
     @Override
@@ -131,6 +138,7 @@ public class DrawerActivity extends BaseActivity
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     startActivityClosingAllOthers(LoginActivity.class);
+                                    PrefsManager.clearPrefs(getApplicationContext());
                                 }
                             })
                     .setNegativeButton(
