@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MagnetProjectTemplate</string>
+    <string name="app_name">Magnet Project Template</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -12,6 +12,12 @@
 
     <string name="title_activity_upgrade_required">UpgradeRequiredActivity</string>
     <string name="title_activity_login">Sign in</string>
+
+    <!-- Drawer -->
+    <string name="drawer_hello">Hi!</string>
+    <string name="drawer_hello_user">Hi %s!</string>
+
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

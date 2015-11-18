@@ -38,7 +38,7 @@ public class UserRequestManager extends APIManager {
      */
     public static JsonObjectRequest createUserRequest(String firstName, String lastName,
                                                       String email, String password,
-                                                      Response.Listener listener,
+                                                      Response.Listener<JSONObject> listener,
                                                       AppErrorListener errorListener) {
 
         JSONObject params = new JSONObject();

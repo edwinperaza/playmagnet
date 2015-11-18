@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -23,6 +24,9 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.User;
@@ -130,13 +134,26 @@ public class LoginActivity extends BaseActivity {
         } else {
             showProgress(true);
 
-            Response.Listener listener = new Response.Listener() {
+            Response.Listener listener = new Response.Listener<JSONObject>() {
                 @Override
-                public void onResponse(Object response) {
+                public void onResponse(JSONObject response) {
                     showProgress(false);
 
+                    Context context = getApplicationContext();
+
+                    String firstName = null;
+                    String lastName = null;
+                    try {
+                        firstName = response.getString(UserRequestManager.FIRST_NAME);
+                        lastName = response.getString(UserRequestManager.LAST_NAME);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     //TODO: Use method UserManager.logInUser loading user from database
-                    PrefsManager.saveUserCredentials(getApplicationContext(), email, password);
+                    PrefsManager.saveUserCredentials(context, email, password);
+                    PrefsManager.setStringPref(context, PrefsManager.PREF_USER_FIRST_NAME, firstName);
+                    PrefsManager.setStringPref(context, PrefsManager.PREF_USER_LAST_NAME, lastName);
 
                     startActivityClosingAllOthers(DrawerActivity.class);
                 }

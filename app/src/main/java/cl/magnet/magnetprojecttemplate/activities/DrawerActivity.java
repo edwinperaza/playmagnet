@@ -1,6 +1,7 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.fragments.Section1Fragment;
@@ -57,8 +60,17 @@ public class DrawerActivity extends BaseActivity
         ft.replace(R.id.mainFrame, fragment);
         ft.commit();
 
+        Context context = getApplicationContext();
+
+        String fullName = PrefsManager.getFullName(context);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView textView = (TextView) headerView.findViewById(R.id.drawer_hello_textView);
+        textView.setText(String.format(getResources().getString(R.string.drawer_hello_user), fullName));
+
         //TODO: Use method UserManager.isUserLogged instead
-        if(!PrefsManager.isUserLogged(getApplicationContext())){
+        if(!PrefsManager.isUserLogged(context)){
             startActivityClosingAllOthers(LoginActivity.class);
         }
 

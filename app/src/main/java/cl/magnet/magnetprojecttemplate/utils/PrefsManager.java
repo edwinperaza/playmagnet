@@ -72,6 +72,45 @@ public class PrefsManager {
     }
 
     /**
+     * Sets a Integer preference
+     *
+     * @param context: The application context
+     * @param prefKey: The key identifier
+     * @param value: The new preference value
+     */
+    public static void setIntPref(Context context, String prefKey, Integer value) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putInt(prefKey, value);
+        editor.apply();
+    }
+
+    /**
+     * Sets a Long preference
+     *
+     * @param context: The application context
+     * @param prefKey: The key identifier
+     * @param value: The new preference value
+     */
+    public static void setLongPref(Context context, String prefKey, Long value) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putLong(prefKey, value);
+        editor.apply();
+    }
+
+    /**
+     * Sets a String preference
+     *
+     * @param context: The application context
+     * @param prefKey: The key identifier
+     * @param value: The new preference value
+     */
+    public static void setStringPref(Context context, String prefKey, String value) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(prefKey, value);
+        editor.apply();
+    }
+
+    /**
      * Saves the user email and password for future logins
      *
      * @param context The context where the preferences get called
@@ -103,5 +142,17 @@ public class PrefsManager {
      */
     public static boolean isUserLogged(Context context) {
         return !PrefsManager.getStringPref(context, PREF_USER_EMAIL).equals(DEFAULT_STRING);
+    }
+
+    /**
+     * Concatenates first and last name with a space in between
+     *
+     * @param context: The application context
+     * @return Full name
+     */
+    public static String getFullName(Context context) {
+        String firstName = getStringPref(context, PREF_USER_FIRST_NAME);
+        String lastName= getStringPref(context, PREF_USER_LAST_NAME);
+        return firstName + " " + lastName;
     }
 }

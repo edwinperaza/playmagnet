@@ -5,7 +5,9 @@ package cl.magnet.magnetprojecttemplate.network;
  */
 public class APIManager {
 
+    //API Ur
     protected final static String BASE_URL = "http://test.magnet.cl/";
     protected final static String API_URL = "api/v1/";
+
 
 }
