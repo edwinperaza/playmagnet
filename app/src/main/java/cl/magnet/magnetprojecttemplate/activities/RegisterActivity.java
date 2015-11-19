@@ -14,6 +14,9 @@ import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 import cl.magnet.magnetrestclient.VolleyManager;
 
+/**
+ * A sign up screen that offers user registration.
+ */
 public class RegisterActivity extends BaseActivity {
 
     // UI references.
@@ -34,8 +37,9 @@ public class RegisterActivity extends BaseActivity {
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordConfirmationView = (EditText) findViewById(R.id.password_confirmation);
-
         Button mSignUpButton = (Button) findViewById(R.id.sign_up_button);
+
+        // Set up Click Listeners.
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +49,11 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
+    /**
+     * Attempts to sign register a new user.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual sign up attempt is made.
+     */
     private void attemptSignUp() {
 
         // Reset errors.
@@ -110,6 +119,8 @@ public class RegisterActivity extends BaseActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+
+            //Register user using Volley request
             Response.Listener listener = new Response.Listener() {
                 @Override
                 public void onResponse(Object response) {

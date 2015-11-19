@@ -25,6 +25,9 @@ import cl.magnet.magnetprojecttemplate.fragments.Section1Fragment;
 import cl.magnet.magnetprojecttemplate.fragments.Section2Fragment;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 
+/**
+ * The class in charge of the drawer and its fragments.
+ */
 public class DrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         Section1Fragment.OnFragmentInteractionListener,
@@ -32,6 +35,7 @@ public class DrawerActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,6 +59,7 @@ public class DrawerActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Setting up default fragment.
         Fragment fragment = Section1Fragment.newInstance(null, null);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mainFrame, fragment);
@@ -62,6 +67,7 @@ public class DrawerActivity extends BaseActivity
 
         Context context = getApplicationContext();
 
+        //Setting navigation drawer greeting.
         String fullName = PrefsManager.getFullName(context);
 
         View headerView = navigationView.getHeaderView(0);
@@ -69,6 +75,7 @@ public class DrawerActivity extends BaseActivity
         TextView textView = (TextView) headerView.findViewById(R.id.drawer_hello_textView);
         textView.setText(String.format(getResources().getString(R.string.drawer_hello_user), fullName));
 
+        //If there is no user logged in we go to the Login Activity
         //TODO: Use method UserManager.isUserLogged instead
         if(!PrefsManager.isUserLogged(context)){
             startActivityClosingAllOthers(LoginActivity.class);

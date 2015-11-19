@@ -13,8 +13,13 @@ import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 /**
  * Created by yaniv on 11/4/15.
  */
+
+/**
+ * A Base class useful for using methods common to all activities.
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    //Receiver called when getting an Unauthorized error from server (401)
     private BroadcastReceiver mUnauthorizedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -22,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     };
 
+    //Receiver called when getting an Upgrade Required error from server (426)
     private BroadcastReceiver mUpgradeRequiredReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -33,8 +39,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // register receivers
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mUnauthorizedReceiver, new IntentFilter(AppErrorListener.ACTION_UNAUTHORIZED));
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mUpgradeRequiredReceiver, new IntentFilter(AppErrorListener.ACTION_UPGRADE_REQUIRED));
+        LocalBroadcastManager.getInstance(getApplicationContext())
+                .registerReceiver(mUnauthorizedReceiver, new IntentFilter(AppErrorListener.ACTION_UNAUTHORIZED));
+        LocalBroadcastManager.getInstance(getApplicationContext())
+                .registerReceiver(mUpgradeRequiredReceiver, new IntentFilter(AppErrorListener.ACTION_UPGRADE_REQUIRED));
     }
 
     @Override

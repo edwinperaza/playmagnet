@@ -1,5 +1,8 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
+/**
+ * A screen that leads you to the app store where you have to update the app.
+ */
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +15,7 @@ public class UpgradeRequiredActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade_required);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -25,6 +29,7 @@ public class UpgradeRequiredActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
 }

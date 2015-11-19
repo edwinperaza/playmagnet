@@ -7,7 +7,7 @@ import cl.magnet.magnetprojecttemplate.BuildConfig;
  */
 public class APIManager {
 
-    //API Ur
+    //API Urls
     protected final static String BASE_URL = BuildConfig.BASE_URL;
     protected final static String API_URL = "api/v1/";
 

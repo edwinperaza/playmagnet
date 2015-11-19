@@ -21,6 +21,10 @@ import cl.magnet.usermanager.UserManager;
 /**
  * Created by yaniv on 11/3/15.
  */
+
+/**
+ * Class in charge of managing HTTP errors
+ */
 public class AppErrorListener extends MagnetErrorListener {
 
     public static final String ACTION_UNAUTHORIZED = "AppErrorListener.Unauthorized";
@@ -36,6 +40,10 @@ public class AppErrorListener extends MagnetErrorListener {
         mContext = context.getApplicationContext();
     }
 
+    /**
+     * This method manages every HTTP error and then calls corresponding error method
+     * When using a Volley request create a new AppErrorListener and call super.onErrorResponse in the Error Listener
+     */
     @Override
     public void onErrorResponse(VolleyError error) {
         NetworkResponse networkResponse = error.networkResponse;
@@ -51,6 +59,7 @@ public class AppErrorListener extends MagnetErrorListener {
         }
     }
 
+    //If we get a 401 we log out the user and call Login Activity
     @Override
     public <T> void onUnauthorizedError(VolleyError volleyError, Request<T> request) {
         Toast.makeText(mContext, R.string.error_unauthorized, Toast.LENGTH_SHORT).show();
@@ -61,6 +70,7 @@ public class AppErrorListener extends MagnetErrorListener {
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UNAUTHORIZED));
     }
 
+    //If we get a 426 we close all activities and go to the Upgrade required Activity
     @Override
     public void onUpgradeRequiredError(VolleyError volleyError) {
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UPGRADE_REQUIRED));

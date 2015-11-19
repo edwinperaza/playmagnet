@@ -29,12 +29,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
-import cl.magnet.magnetprojecttemplate.models.user.User;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.VolleyManager;
-import cl.magnet.usermanager.UserManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -52,7 +50,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
+        // Set up views.
         mEmailView = (EditText) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -67,6 +65,10 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
+        // Set up the Click Listeners.
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -90,9 +92,6 @@ public class LoginActivity extends BaseActivity {
                 recoverPassword();
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     /**
@@ -134,6 +133,7 @@ public class LoginActivity extends BaseActivity {
         } else {
             showProgress(true);
 
+            //Login using Volley request
             Response.Listener listener = new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -219,6 +219,9 @@ public class LoginActivity extends BaseActivity {
         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
     }
 
+    /**
+     * Shows dialog asking for email in order to send recovery instructions.
+     */
     protected void recoverPassword() {
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

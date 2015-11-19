@@ -13,6 +13,10 @@ import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
 /**
  * Created by yaniv on 10/28/15.
  */
+
+/**
+ * API requests regarding Users
+ */
 public class UserRequestManager extends APIManager {
 
     private static final String USER_API_URL = BASE_URL + API_URL + "user/";
