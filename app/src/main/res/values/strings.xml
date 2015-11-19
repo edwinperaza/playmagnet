@@ -10,14 +10,13 @@
     <string name="hello_blank_fragment_1">Hello blank fragment 1</string>
     <string name="hello_blank_fragment_2">Hello blank fragment 2</string>
 
-    <string name="title_activity_upgrade_required">UpgradeRequiredActivity</string>
+    <string name="title_activity_upgrade_required">Upgrade Required</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_register">Sign up</string>
 
     <!-- Drawer -->
     <string name="drawer_hello">Hi!</string>
     <string name="drawer_hello_user">Hi %s!</string>
-
-
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -33,6 +32,12 @@
     <string name="prompt_password_confirmation">Repeat Password</string>
     <string name="prompt_first_name">First name</string>
     <string name="prompt_last_name">Last name</string>
+
+    <!-- Strings related to register -->
+    <string name="upgrade_required_message">You must update before continuing</string>
+    <string name="update_now">Update now</string>
+
+
 
     <!-- Error -->
     <string name="error_invalid_email">This email address is invalid</string>
