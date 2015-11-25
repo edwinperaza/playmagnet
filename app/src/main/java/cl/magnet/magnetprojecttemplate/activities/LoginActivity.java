@@ -168,8 +168,6 @@ public class LoginActivity extends BaseActivity {
                     showToast(R.string.error_wrong_credentials);
                 }
 
-                //TODO: Override method when user is already registered
-
                 @Override
                 public void onPostResponse(){
                     showHideView(mLoginFormView, mProgressView, true);

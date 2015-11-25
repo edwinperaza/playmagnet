@@ -154,6 +154,8 @@ public class RegisterActivity extends BaseActivity {
                     startActivityClosingAllOthers(DrawerActivity.class);
                 }
 
+                //TODO: Override method when user is already registered
+
                 @Override
                 public void onPostResponse(){
                     showHideView(mLoginFormView, mProgressView, true);

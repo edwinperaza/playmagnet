@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.Response;
 
+import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
 
 /**
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private BroadcastReceiver mUnauthorizedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            showToast(R.string.error_unauthorized);
             startActivityClosingAllOthers(LoginActivity.class);
         }
     };
