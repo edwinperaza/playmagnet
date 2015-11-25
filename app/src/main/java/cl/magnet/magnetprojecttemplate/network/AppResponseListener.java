@@ -59,6 +59,9 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
             }
 
         }
+        else{
+            noInternetError();
+        }
 
         onPostResponse();
     }
@@ -78,6 +81,11 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
     @Override
     public void onUpgradeRequiredError(VolleyError volleyError) {
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_UPGRADE_REQUIRED));
+    }
+
+    //If there is no network response we notify there is no internet access
+    public void noInternetError() {
+        Toast.makeText(mContext, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
     }
 
     @Override

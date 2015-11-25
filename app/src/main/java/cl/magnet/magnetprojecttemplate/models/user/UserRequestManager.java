@@ -29,21 +29,18 @@ public class UserRequestManager extends APIManager {
     public static String PASSWORD = "password";
 
     /**
-     * Creates a new JsonObjectRequest for creating a new
-     * user.
+     * Creates a new JsonObjectRequest for creating a new user.
      *
      * @param firstName The first name of the user to create
      * @param lastName The last name of the user to create
      * @param email The email of the user to create
      * @param password The password of the user to create
-     * @param listener The listener for on success callbacks
-     * @param errorListener The listener for error callbacks
+     * @param responseListener The listener for on success and error callbacks
      * @return The created JsonObjectRequest for create user webservice
      */
     public static MagnetJsonObjectRequest createUserRequest(String firstName, String lastName,
                                                       String email, String password,
-                                                      Response.Listener<JSONObject> listener,
-                                                      AppResponseListener errorListener) {
+                                                      AppResponseListener<JSONObject> responseListener) {
 
         JSONObject params = new JSONObject();
         try {
@@ -56,10 +53,17 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new MagnetJsonObjectRequest(Request.Method.POST, USER_API_URL, params, listener, errorListener);
+        return new MagnetJsonObjectRequest(Request.Method.POST, USER_API_URL, params, responseListener, responseListener);
     }
 
-
+    /**
+     * Creates a new JsonObjectRequest for logging in a user.
+     *
+     * @param email The email of the user to log in
+     * @param password The password of the user to log in
+     * @param responseListener The listener for on success and error callbacks
+     * @return The created JsonObjectRequest for logging in the user webservice
+     */
     public static MagnetJsonObjectRequest userLoginRequest(String email,
                                                            String password,
                                                            AppResponseListener<JSONObject> responseListener) {

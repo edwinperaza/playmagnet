@@ -46,6 +46,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_unauthorized">You must sign in again</string>
     <string name="error_unknown">There is an unknown error</string>
+    <string name="error_no_internet">There is no internet connection</string>
     <string name="error_wrong_credentials">Invalid email or password</string>
 
 

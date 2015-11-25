@@ -2,11 +2,16 @@ package cl.magnet.magnetprojecttemplate.activities;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Response;
+
+import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
@@ -25,6 +30,8 @@ public class RegisterActivity extends BaseActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmationView;
+    private View mProgressView;
+    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,21 @@ public class RegisterActivity extends BaseActivity {
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordConfirmationView = (EditText) findViewById(R.id.password_confirmation);
+        mPasswordConfirmationView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.register || id == EditorInfo.IME_NULL) {
+                    attemptSignUp();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set up views
+        mLoginFormView = findViewById(R.id.register_form);
+        mProgressView = findViewById(R.id.register_progress);
+
         Button mSignUpButton = (Button) findViewById(R.id.sign_up_button);
 
         // Set up Click Listeners.
@@ -120,17 +142,26 @@ public class RegisterActivity extends BaseActivity {
             focusView.requestFocus();
         } else {
 
-            //Register user using Volley request
-            Response.Listener listener = new Response.Listener() {
+            //We show the loader and hide the form
+            showHideView(mProgressView, mLoginFormView, true);
+
+            //We set the response listener with corresponding overridden methods
+            AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(getApplicationContext()){
                 @Override
-                public void onResponse(Object response) {
+                public void onResponse(JSONObject response) {
                     showToast(R.string.registration_succeeded);
+
+                    startActivityClosingAllOthers(DrawerActivity.class);
+                }
+
+                @Override
+                public void onPostResponse(){
+                    showHideView(mLoginFormView, mProgressView, true);
                 }
             };
 
-            AppResponseListener errorListener = new AppResponseListener(getApplicationContext());
-
-            MagnetJsonObjectRequest request = UserRequestManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
+            //We add the request
+            MagnetJsonObjectRequest request = UserRequestManager.createUserRequest(firstName, lastName, email, password, appResponseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 

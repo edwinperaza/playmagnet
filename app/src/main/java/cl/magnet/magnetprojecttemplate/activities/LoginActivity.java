@@ -133,8 +133,10 @@ public class LoginActivity extends BaseActivity {
             focusView.requestFocus();
         } else {
 
+            //We show the loader and hide the form
             showHideView(mProgressView, mLoginFormView, true);
 
+            //We set the response listener with corresponding overridden methods
             AppResponseListener<JSONObject> responseListener = new AppResponseListener<JSONObject>(getApplicationContext()){
 
                 @Override
@@ -162,14 +164,11 @@ public class LoginActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onErrorResponse(VolleyError error) {
-                    super.onErrorResponse(error);
-                }
-
-                @Override
                 public void onUnauthorizedError(VolleyError error, Request request) {
                     showToast(R.string.error_wrong_credentials);
                 }
+
+                //TODO: Override method when user is already registered
 
                 @Override
                 public void onPostResponse(){
@@ -178,6 +177,7 @@ public class LoginActivity extends BaseActivity {
 
             };
 
+            //We add the request
             MagnetJsonObjectRequest request = UserRequestManager.userLoginRequest(email, password, responseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
 
