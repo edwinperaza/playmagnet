@@ -30,7 +30,8 @@ import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
-import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
+import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.VolleyManager;
 
@@ -131,13 +132,13 @@ public class LoginActivity extends BaseActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            showProgress(true);
 
-            //Login using Volley request
-            Response.Listener listener = new Response.Listener<JSONObject>() {
+            showHideView(mProgressView, mLoginFormView, true);
+
+            AppResponseListener<JSONObject> responseListener = new AppResponseListener<JSONObject>(getApplicationContext()){
+
                 @Override
                 public void onResponse(JSONObject response) {
-                    showProgress(false);
 
                     Context context = getApplicationContext();
 
@@ -156,63 +157,32 @@ public class LoginActivity extends BaseActivity {
                     PrefsManager.setStringPref(context, PrefsManager.PREF_USER_LAST_NAME, lastName);
 
                     startActivityClosingAllOthers(DrawerActivity.class);
-                }
-            };
 
-            AppErrorListener errorListener = new AppErrorListener(getApplicationContext()){
+                    onPostResponse();
+                }
+
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     super.onErrorResponse(error);
-                    showProgress(false);
                 }
+
                 @Override
                 public void onUnauthorizedError(VolleyError error, Request request) {
-                    showToast(R.string.wrong_credentials);
-                    showProgress(false);
+                    showToast(R.string.error_wrong_credentials);
                 }
+
+                @Override
+                public void onPostResponse(){
+                    showHideView(mLoginFormView, mProgressView, true);
+                }
+
             };
 
-            Request request = UserRequestManager.userLoginRequest(email, password, listener, errorListener);
+            MagnetJsonObjectRequest request = UserRequestManager.userLoginRequest(email, password, responseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
 
         }
 
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
     }
 
     private void showRegister() {

@@ -17,6 +17,7 @@
     <!-- Drawer -->
     <string name="drawer_hello">Hi!</string>
     <string name="drawer_hello_user">Hi %s!</string>
+    <string name="logout_confirmation">Are you sure you want to log out?</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -37,9 +38,7 @@
     <string name="upgrade_required_message">You must update before continuing</string>
     <string name="update_now">Update now</string>
 
-
-
-    <!-- Error -->
+    <!-- Errors -->
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_invalid_password_confirmation">Passwords don\'t match</string>
@@ -47,8 +46,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_unauthorized">You must sign in again</string>
     <string name="error_unknown">There is an unknown error</string>
-    <string name="wrong_credentials">Invalid email or password</string>
+    <string name="error_wrong_credentials">Invalid email or password</string>
 
-    <string name="logout_confirmation">Are you sure you want to log out?</string>
 
 </resources>

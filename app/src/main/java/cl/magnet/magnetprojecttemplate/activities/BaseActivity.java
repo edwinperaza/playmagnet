@@ -1,14 +1,22 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
-import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import com.android.volley.VolleyError;
+import com.android.volley.Response;
+
+import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
 
 /**
  * Created by yaniv on 11/4/15.
@@ -40,9 +48,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         // register receivers
         LocalBroadcastManager.getInstance(getApplicationContext())
-                .registerReceiver(mUnauthorizedReceiver, new IntentFilter(AppErrorListener.ACTION_UNAUTHORIZED));
+                .registerReceiver(mUnauthorizedReceiver, new IntentFilter(AppResponseListener.ACTION_UNAUTHORIZED));
         LocalBroadcastManager.getInstance(getApplicationContext())
-                .registerReceiver(mUpgradeRequiredReceiver, new IntentFilter(AppErrorListener.ACTION_UPGRADE_REQUIRED));
+                .registerReceiver(mUpgradeRequiredReceiver, new IntentFilter(AppResponseListener.ACTION_UPGRADE_REQUIRED));
     }
 
     @Override
@@ -104,5 +112,47 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Show and hide views. The visibility of the view to hide can be View.GONE or View.INVISIBLE.
+     * @param viewToShow The view to show
+     * @param viewToHide The view to hide
+     * @param gone True to hide the view using View.GONE
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    protected void showHideView(final View viewToShow, final View viewToHide, final boolean gone) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            viewToShow.setVisibility(View.VISIBLE);
+            viewToShow.animate()
+                    .setDuration(shortAnimTime)
+                    .alpha(1)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            viewToShow.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+            viewToHide.setVisibility(gone ? View.GONE : View.INVISIBLE);
+            viewToHide.animate()
+                    .setDuration(shortAnimTime)
+                    .alpha(0)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            viewToHide.setVisibility(gone ? View.GONE : View.INVISIBLE);
+                        }
+                    });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            viewToHide.setVisibility(gone ? View.GONE : View.INVISIBLE);
+            viewToShow.setVisibility(View.VISIBLE);
+        }
+    }
 
 }

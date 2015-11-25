@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
-import cl.magnet.magnetprojecttemplate.network.AppErrorListener;
+import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
+import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
@@ -128,9 +128,9 @@ public class RegisterActivity extends BaseActivity {
                 }
             };
 
-            AppErrorListener errorListener = new AppErrorListener(getApplicationContext());
+            AppResponseListener errorListener = new AppResponseListener(getApplicationContext());
 
-            Request request = UserRequestManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
+            MagnetJsonObjectRequest request = UserRequestManager.createUserRequest(firstName, lastName, email, password, listener, errorListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 

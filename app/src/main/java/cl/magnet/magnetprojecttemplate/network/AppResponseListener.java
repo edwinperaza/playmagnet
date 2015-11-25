@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import cl.magnet.magnetprojecttemplate.R;
@@ -18,9 +19,9 @@ import cl.magnet.magnetrestclient.MagnetErrorListener;
  */
 
 /**
- * Class in charge of managing HTTP errors
+ * Class in charge of managing Volley Responses
  */
-public class AppErrorListener extends MagnetErrorListener {
+public class AppResponseListener<T> extends MagnetErrorListener implements Response.Listener<T>{
 
     public static final String ACTION_UNAUTHORIZED = "AppErrorListener.Unauthorized";
     public static final String ACTION_UPGRADE_REQUIRED = "AppErrorListener.UpgradeRequired";
@@ -30,9 +31,14 @@ public class AppErrorListener extends MagnetErrorListener {
 
     private Context mContext;
 
-    public AppErrorListener(Context context) {
+    public AppResponseListener(Context context) {
         // prevents an activity or broadcast receiver leak by getting the application context
         mContext = context.getApplicationContext();
+    }
+
+    @Override
+    public void onResponse(T response) {
+        onPostResponse();
     }
 
     /**
@@ -41,6 +47,7 @@ public class AppErrorListener extends MagnetErrorListener {
      */
     @Override
     public void onErrorResponse(VolleyError error) {
+
         NetworkResponse networkResponse = error.networkResponse;
 
         if(networkResponse != null){
@@ -52,6 +59,8 @@ public class AppErrorListener extends MagnetErrorListener {
             }
 
         }
+
+        onPostResponse();
     }
 
     //If we get a 401 we log out the user and call Login Activity
@@ -75,4 +84,7 @@ public class AppErrorListener extends MagnetErrorListener {
     public void onUnhandledError(VolleyError volleyError) {
         Toast.makeText(mContext, R.string.error_unknown, Toast.LENGTH_SHORT).show();
     }
+
+    public void onPostResponse(){}
+
 }
