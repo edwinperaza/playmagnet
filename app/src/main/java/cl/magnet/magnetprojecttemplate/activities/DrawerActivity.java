@@ -18,10 +18,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+
+import org.json.JSONObject;
+
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.fragments.Section1Fragment;
 import cl.magnet.magnetprojecttemplate.fragments.Section2Fragment;
+import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
+import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
+import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
  * The class in charge of the drawer and its fragments.
@@ -155,8 +163,16 @@ public class DrawerActivity extends BaseActivity
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    Context context = getApplicationContext();
+
+                                    //We add the log ou request
+                                    AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(context);
+                                    Request request = UserRequestManager.userLogOutRequest(appResponseListener);
+                                    VolleyManager.getInstance(context).addToRequestQueue(request);
+
+                                    PrefsManager.clearPrefs(context);
+
                                     startActivityClosingAllOthers(LoginActivity.class);
-                                    PrefsManager.clearPrefs(getApplicationContext());
                                 }
                             })
                     .setNegativeButton(

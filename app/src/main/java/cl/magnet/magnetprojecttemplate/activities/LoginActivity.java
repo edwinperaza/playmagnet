@@ -1,14 +1,10 @@
 package cl.magnet.magnetprojecttemplate.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -22,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +27,6 @@ import org.json.JSONObject;
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
-import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.VolleyManager;
 
@@ -176,7 +171,7 @@ public class LoginActivity extends BaseActivity {
             };
 
             //We add the request
-            MagnetJsonObjectRequest request = UserRequestManager.userLoginRequest(email, password, responseListener);
+            JsonObjectRequest request = UserRequestManager.userLogInRequest(email, password, responseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
 
         }

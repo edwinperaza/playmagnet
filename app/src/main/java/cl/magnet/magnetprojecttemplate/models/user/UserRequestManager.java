@@ -2,13 +2,13 @@ package cl.magnet.magnetprojecttemplate.models.user;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.network.APIManager;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
-import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 
 /**
  * Created by yaniv on 10/28/15.
@@ -38,7 +38,7 @@ public class UserRequestManager extends APIManager {
      * @param responseListener The listener for on success and error callbacks
      * @return The created JsonObjectRequest for create user webservice
      */
-    public static MagnetJsonObjectRequest createUserRequest(String firstName, String lastName,
+    public static JsonObjectRequest createUserRequest(String firstName, String lastName,
                                                       String email, String password,
                                                       AppResponseListener<JSONObject> responseListener) {
 
@@ -53,7 +53,7 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new MagnetJsonObjectRequest(Request.Method.POST, USER_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Request.Method.POST, USER_API_URL, params, responseListener, responseListener);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UserRequestManager extends APIManager {
      * @param responseListener The listener for on success and error callbacks
      * @return The created JsonObjectRequest for logging in the user webservice
      */
-    public static MagnetJsonObjectRequest userLoginRequest(String email,
+    public static JsonObjectRequest userLogInRequest(String email,
                                                            String password,
                                                            AppResponseListener<JSONObject> responseListener) {
 
@@ -77,7 +77,19 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new MagnetJsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
+
+    }
+
+    /**
+     * Logs out the user from the server session
+     *
+     * @param responseListener The listener for on success and error callbacks
+     * @return The created JsonObjectRequest for logging out the user webservice
+     */
+    public static JsonObjectRequest userLogOutRequest(AppResponseListener<JSONObject> responseListener) {
+
+        return new JsonObjectRequest(Request.Method.DELETE, LOGOUT_API_URL, responseListener, responseListener);
 
     }
 }

@@ -9,14 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
-import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
@@ -163,7 +162,7 @@ public class RegisterActivity extends BaseActivity {
             };
 
             //We add the request
-            MagnetJsonObjectRequest request = UserRequestManager.createUserRequest(firstName, lastName, email, password, appResponseListener);
+            JsonObjectRequest request = UserRequestManager.createUserRequest(firstName, lastName, email, password, appResponseListener);
             VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 

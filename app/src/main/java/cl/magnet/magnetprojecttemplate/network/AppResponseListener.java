@@ -9,18 +9,16 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cl.magnet.magnetprojecttemplate.R;
-import cl.magnet.magnetprojecttemplate.activities.DrawerActivity;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
-import cl.magnet.magnetprojecttemplate.utils.MagnetJsonObjectRequest;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
 import cl.magnet.magnetrestclient.VolleyManager;
-import cl.magnet.usermanager.UserManager;
 
 /**
  * Created by yaniv on 11/3/15.
@@ -125,7 +123,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
         };
 
         //We add the request
-        MagnetJsonObjectRequest reloginRequest = UserRequestManager.userLoginRequest(email, password, responseListener);
+        JsonObjectRequest reloginRequest = UserRequestManager.userLogInRequest(email, password, responseListener);
         VolleyManager.getInstance(mContext).addToRequestQueue(reloginRequest);
 
 
