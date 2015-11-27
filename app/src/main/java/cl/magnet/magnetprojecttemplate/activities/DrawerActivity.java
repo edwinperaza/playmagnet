@@ -156,34 +156,33 @@ public class DrawerActivity extends BaseActivity
     }
 
     public void logout(){
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(R.string.logout_confirmation)
-                    .setPositiveButton(
-                            android.R.string.ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Context context = getApplicationContext();
 
-                                    //We add the log ou request
-                                    AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(context);
-                                    Request request = UserRequestManager.userLogOutRequest(appResponseListener);
-                                    VolleyManager.getInstance(context).addToRequestQueue(request);
+        showAlertDialog(R.string.logout_confirmation,
+                        android.R.string.ok,
+                        android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Context context = getApplicationContext();
 
-                                    PrefsManager.clearPrefs(context);
+                                //We add the log ou request
+                                AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(context);
+                                Request request = UserRequestManager.userLogOutRequest(appResponseListener);
+                                VolleyManager.getInstance(context).addToRequestQueue(request);
 
-                                    startActivityClosingAllOthers(LoginActivity.class);
-                                }
-                            })
-                    .setNegativeButton(
-                            android.R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            })
-                .show();
+                                PrefsManager.clearPrefs(context);
+
+                                startActivityClosingAllOthers(LoginActivity.class);
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }
+        );
+        
     }
 
     @Override

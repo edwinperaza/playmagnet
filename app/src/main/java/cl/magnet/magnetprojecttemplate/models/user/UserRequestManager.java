@@ -22,6 +22,7 @@ public class UserRequestManager extends APIManager {
     private static final String USER_API_URL = BASE_URL + API_URL + "user/";
     private static final String LOGIN_API_URL = USER_API_URL + "login/";
     private static final String LOGOUT_API_URL = USER_API_URL + "logout/";
+    private static final String RECOVER_PASSWORD_API_URL = USER_API_URL + "recover_password/";
 
     public static String FIRST_NAME = "first_name";
     public static String LAST_NAME = "last_name";
@@ -90,6 +91,26 @@ public class UserRequestManager extends APIManager {
     public static JsonObjectRequest userLogOutRequest(AppResponseListener<JSONObject> responseListener) {
 
         return new JsonObjectRequest(Request.Method.DELETE, LOGOUT_API_URL, responseListener, responseListener);
+
+    }
+
+    /**
+     * Creates a new JsonObjectRequest for recovering the user's password.
+     *
+     * @param email The email of the account to recover
+     * @return The Request created
+     */
+    public static JsonObjectRequest userRecoverPassword(String email, AppResponseListener<JSONObject> responseListener) {
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put(EMAIL, email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new JsonObjectRequest(Request.Method.POST, RECOVER_PASSWORD_API_URL, params, responseListener, responseListener);
 
     }
 }

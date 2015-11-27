@@ -3,8 +3,10 @@ package cl.magnet.magnetprojecttemplate.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -155,6 +157,76 @@ public abstract class BaseActivity extends AppCompatActivity {
             viewToHide.setVisibility(gone ? View.GONE : View.INVISIBLE);
             viewToShow.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * Shows an alert dialog with a message and a button with the text from a resource.
+     *
+     * @param msgResId The resource id of the text the dialog will display
+     * @param btnTextResId The resource id of the text the button will display
+     * @param btnClickListener The button click listener that will handle the click event
+     */
+    protected void showAlertDialog(int msgResId,
+                                   int btnTextResId,
+                                   DialogInterface.OnClickListener btnClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(msgResId)
+                .setPositiveButton(btnTextResId, btnClickListener);
+
+        builder.show();
+    }
+
+    /**
+     * Shows an alert dialog with a message and two buttons (a positive and a negative button) with
+     * the text from a resource.
+     *
+     * @param msgResId The resource id of the text the dialog will display
+     * @param positiveBtnTextResId The resource id of the text the positive button will display
+     * @param negativeBtnTextResId The resource id of the text the negative button will display
+     * @param positiveBtnClickListener The positive button click listener that will handle the
+     *                                 click event
+     * @param negativeBtnClickListener The negative button click listener that will handle the
+     *                                 click event
+     */
+    protected void showAlertDialog(int msgResId,
+                                   int positiveBtnTextResId,
+                                   int negativeBtnTextResId,
+                                   DialogInterface.OnClickListener positiveBtnClickListener,
+                                   DialogInterface.OnClickListener negativeBtnClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(msgResId)
+                .setPositiveButton(positiveBtnTextResId, positiveBtnClickListener)
+                .setNegativeButton(negativeBtnTextResId, negativeBtnClickListener);
+
+        builder.show();
+    }
+
+    /**
+     * Shows an alert dialog with a message and two buttons (a positive and a negative button) with
+     * the text from a resource.
+     *
+     * @param msg The message the alert dialog will display
+     * @param positiveBtnTextResId The resource id of the text the positive button will display
+     * @param negativeBtnTextResId The resource id of the text the negative button will display
+     * @param positiveBtnClickListener The positive button click listener that will handle the
+     *                                 click event
+     * @param negativeBtnClickListener The negative button click listener that will handle the
+     *                                 click event
+     */
+    protected void showAlertDialog(String msg,
+                                   int positiveBtnTextResId,
+                                   int negativeBtnTextResId,
+                                   DialogInterface.OnClickListener positiveBtnClickListener,
+                                   DialogInterface.OnClickListener negativeBtnClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(msg)
+                .setPositiveButton(positiveBtnTextResId, positiveBtnClickListener)
+                .setNegativeButton(negativeBtnTextResId, negativeBtnClickListener);
+
+        builder.show();
     }
 
 }

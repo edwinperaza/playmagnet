@@ -26,6 +26,8 @@
     <string name="action_sign_up">Sign up</string>
     <string name="activity_login_btn_password_recover">Forgot your password?</string>
     <string name="activity_login_recover_password_dialog_msg">Enter your email address to recover your password:</string>
+    <string name="activity_login_recover_password_success">An email will be sent to the address you provided so you can recover your password</string>
+    <string name="error_does_not_exist">The email does not exist</string>
 
     <!-- Strings related to register -->
     <string name="action_register">Register</string>

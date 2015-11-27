@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -28,6 +29,7 @@ import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
+import cl.magnet.magnetrestclient.VolleyErrorHelper;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
@@ -224,7 +226,42 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void callRecoverPasswordWebservice(String email) {
-        //TODO: Perform password recovery on API
+
+        //We show the loader and hide the form
+        showHideView(mProgressView, mLoginFormView, true);
+
+        //We create the listeners for the request
+        AppResponseListener<JSONObject> appResponseListener = new AppResponseListener<JSONObject>(getApplicationContext()) {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                showAlertDialog(R.string.activity_login_recover_password_success, android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                );
+
+                onPostResponse();
+            }
+
+            @Override
+            public void onBadRequest(VolleyError error) {
+                showToast(R.string.error_does_not_exist);
+            }
+
+            @Override
+            public void onPostResponse(){
+                showHideView(mLoginFormView, mProgressView, true);
+            }
+        };
+
+        //We add the request
+        JsonObjectRequest req = UserRequestManager.userRecoverPassword(email, appResponseListener);
+        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(req, this);
+
     }
 
     public static boolean isEmailValid(String email) {

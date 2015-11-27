@@ -18,6 +18,7 @@ import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
+import cl.magnet.magnetrestclient.VolleyErrorHelper;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
@@ -32,6 +33,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
     public static final String ACTION_UNAUTHORIZED = "AppErrorListener.Unauthorized";
     public static final String ACTION_UPGRADE_REQUIRED = "AppErrorListener.UpgradeRequired";
 
+    public static final int HTTP_BAD_REQUEST = 400;
     public static final int HTTP_UNAUTHORIZED = 401;
     public static final int HTTP_UPGRADE_REQUIRED = 426;
 
@@ -61,6 +63,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
             switch(networkResponse.statusCode){
                 case HTTP_UNAUTHORIZED: onUnauthorizedError(error, null); break;
                 case HTTP_UPGRADE_REQUIRED: onUpgradeRequiredError(error); break;
+                case HTTP_BAD_REQUEST: onBadRequest(error); break;
                 default: onUnhandledError(error); break;
             }
 
@@ -138,6 +141,12 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
     }
 
     /**
+     * If we get a 400 we send and appropriate message (Override for each case).
+     */
+    public void onBadRequest(VolleyError volleyError) {
+    }
+
+    /**
      * If there is no network response we notify there is no internet access
      */
     public void noInternetError() {
@@ -149,7 +158,8 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
      */
     @Override
     public void onUnhandledError(VolleyError volleyError) {
-        Toast.makeText(mContext, R.string.error_unknown, Toast.LENGTH_SHORT).show();
+        String error = VolleyErrorHelper.getMessage(volleyError, mContext);
+        Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
     }
 
 }
