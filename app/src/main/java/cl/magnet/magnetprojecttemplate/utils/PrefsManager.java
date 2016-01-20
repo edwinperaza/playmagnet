@@ -22,6 +22,9 @@ public class PrefsManager {
     public final static String PREF_USER_LAST_NAME = PREF_USER + ".lastName";
     public final static String PREF_USER_EMAIL = PREF_USER + ".email";
     public final static String PREF_USER_PASSWORD = PREF_USER + ".password";
+    public static final String PREF_GCM = PREFS_NAME + ".gcm";
+    public static final String PREF_GCM_TOKEN = PREF_GCM + ".token";
+    public static final String PREF_GCM_SENT_TOKEN = PREF_GCM + ".sentToken";
 
     //Default values
     public final static int DEFAULT_INT = Integer.MIN_VALUE;
@@ -155,4 +158,31 @@ public class PrefsManager {
         String lastName= getStringPref(context, PREF_USER_LAST_NAME);
         return firstName + " " + lastName;
     }
+
+    // ################ GCM ###############
+
+    public static void setSentTokenToServer(Context context, boolean isSent) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putBoolean(PREF_GCM_SENT_TOKEN, isSent);
+        editor.apply();
+    }
+
+    public static boolean getSentTokenToServer(Context context) {
+
+        SharedPreferences prefs = getPrefs(context);
+        return prefs.getBoolean(PREF_GCM_SENT_TOKEN, false);
+    }
+
+    public static void setGCMToken(Context context, String token) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(PREF_GCM_TOKEN, token);
+        editor.apply();
+    }
+
+    public static String getGCMToken(Context context) {
+
+        SharedPreferences prefs = getPrefs(context);
+        return prefs.getString(PREF_GCM_TOKEN, null);
+    }
+
 }
