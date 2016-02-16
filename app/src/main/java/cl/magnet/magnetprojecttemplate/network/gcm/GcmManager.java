@@ -86,15 +86,6 @@ public class GcmManager {
         return true;
     }
 
-    private void unsubscribeToken() {
-
-//        String token = PrefsManager.getGCMToken(mContext);
-//        TokenRequest tokenRequest = new TokenRequest(token, this, false, mContext);
-//
-//        tokenRequest.request();
-
-    }
-
     public void registerGcmReceiver() {
 
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mRegistrationReceiver,

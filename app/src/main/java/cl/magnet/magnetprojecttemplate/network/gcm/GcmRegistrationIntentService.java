@@ -19,9 +19,6 @@ import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 public class GcmRegistrationIntentService extends IntentService {
 
     public static final String TAG = GcmRegistrationIntentService.class.getSimpleName();
-    public static final String KEY_USER = "user";
-    public static final String KEY_PASSWORD = "password";
-    public static final String KEY_DOMAIN = "domain";
     public static final String GCM_REGISTRATION_COMPLETE = "gcm_registration_complete";
     private static final String[] TOPICS = {"global"};
 
@@ -49,9 +46,6 @@ public class GcmRegistrationIntentService extends IntentService {
                 // [END get_token]
                 Log.i(TAG, "GCM Registration Token: " + token);
 
-                String user = intent.getExtras().getString(KEY_USER);
-                String password = intent.getExtras().getString(KEY_PASSWORD);
-
                 sendRegistrationToServer(token);
 
                 // You should store a boolean that indicates whether the generated token has been
@@ -75,7 +69,7 @@ public class GcmRegistrationIntentService extends IntentService {
     private void sendRegistrationToServer(String token) {
 
         GcmTokenRequest gcmTokenRequest = new GcmTokenRequest(this);
-        gcmTokenRequest.request();
+        gcmTokenRequest.suscribeToken(token);
 
     }
 }
