@@ -16,31 +16,42 @@ import android.support.v4.app.NotificationCompat;
  */
 public abstract class GcmNotificator {
 
-    private Class<Activity> activityClass;
-
-
     /**
-     * @return el mensaje de la notificación
+     * @return the message to show
      */
     public abstract String getBody();
 
     /**
      * @param context
-     * @return el sonido de la notificación
+     * @return the notification sound
      */
     public abstract Uri getSound(Context context);
 
     /**
-     * @return el ícono de la notificación
+     * @return the notification icon
      */
     public abstract int getIcon();
 
     /**
-     * @return el título de la notificación
+     * @return the notification title
      */
     public abstract String getTitle();
 
-    public void sendNotification(Context context, Bundle extras) {
+    /**
+     * @param context
+     * @return the color for the background of the notification's icon.
+     */
+    protected abstract int getColor(Context context);
+
+
+    /**
+     * Creates a notification and shows it
+     *
+     * @param context
+     * @param activityClass
+     * @param extras
+     */
+    public void sendNotification(Context context, Class activityClass, Bundle extras) {
 
         Intent intent = new Intent(context, activityClass);
 
@@ -52,9 +63,12 @@ public abstract class GcmNotificator {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(getIcon())
+                .setColor(getColor(context))
                 .setContentTitle(getTitle())
                 .setContentText(getBody())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(getBody()))
                 .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSound(getSound(context))
                 .setContentIntent(pendingIntent);
 
