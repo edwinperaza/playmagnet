@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -17,8 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -29,7 +26,6 @@ import cl.magnet.magnetprojecttemplate.R;
 import cl.magnet.magnetprojecttemplate.models.user.UserRequestManager;
 import cl.magnet.magnetprojecttemplate.network.AppResponseListener;
 import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
-import cl.magnet.magnetrestclient.VolleyErrorHelper;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
@@ -161,7 +157,7 @@ public class LoginActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onUnauthorizedError(VolleyError error, Request request) {
+                public void onUnauthorizedError(VolleyError error) {
                     showToast(R.string.error_wrong_credentials);
                 }
 
