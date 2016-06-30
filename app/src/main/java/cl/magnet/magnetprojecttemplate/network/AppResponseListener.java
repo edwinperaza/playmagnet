@@ -6,7 +6,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -40,6 +39,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
     private Context mContext;
 
     public AppResponseListener(Context context) {
+        super(context);
         // prevents an activity or broadcast receiver leak by getting the application context
         mContext = context.getApplicationContext();
     }
@@ -61,7 +61,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
         if(networkResponse != null){
 
             switch(networkResponse.statusCode){
-                case HTTP_UNAUTHORIZED: onUnauthorizedError(error, null); break;
+                case HTTP_UNAUTHORIZED: onUnauthorizedError(error); break;
                 case HTTP_UPGRADE_REQUIRED: onUpgradeRequiredError(error); break;
                 case HTTP_BAD_REQUEST: onBadRequest(error); break;
                 default: onUnhandledError(error); break;
@@ -73,6 +73,11 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
         }
 
         onPostResponse();
+    }
+
+    @Override
+    public void noInternetConnectionError() {
+
     }
 
     /**
@@ -87,7 +92,7 @@ public class AppResponseListener<T> extends MagnetErrorListener implements Respo
      * This method must be overridden only in the LoginActivity request. Nowhere else.
      */
     @Override
-    public <Type> void onUnauthorizedError(VolleyError volleyError, Request<Type> request) {
+    public <T> void onUnauthorizedError(VolleyError volleyError) {
 
         final String email = PrefsManager.getStringPref(mContext, PrefsManager.PREF_USER_EMAIL);
         final String password = PrefsManager.getStringPref(mContext, PrefsManager.PREF_USER_PASSWORD);
