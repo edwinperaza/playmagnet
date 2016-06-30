@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "cl.magnet.magnetprojecttemplate"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -25,15 +25,20 @@ android {
     repositories {
         mavenCentral()
         maven { url 'https://raw.githubusercontent.com/magnet-cl/android-libraries/master/release'}
+
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.google.android.gms:play-services:7.5.0'
-    compile 'com.android.support:design:22.2.0'
-    compile 'cl.magnet.magnetrestclient:magnetRestClient:1.0.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v13:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.google.android.gms:play-services:9.0.1'
+
+    // MagnetRestClient is now at bintray (jcenter)
+    compile 'cl.magnet.magnetrestclient:magnetrestclient:1.1.0'
     compile 'cl.magnet.usermanager:userManager:1.0.0'
 }
