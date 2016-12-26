@@ -1,4 +1,4 @@
-package cl.magnet.magnetprojecttemplate.network.gcm;
+package cl.magnet.magnetprojecttemplate.network.fcm;
 
 import android.content.Context;
 import android.util.Log;
@@ -19,16 +19,16 @@ import cl.magnet.magnetprojecttemplate.utils.PrefsManager;
 import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
- * Clase que maneja la suscripción del Token de GCM en el servidor
- *
- * Created by Tito_Leiva on 31-07-15.
+ * Created by edwinperaza on 12/26/16.
  */
-public class GcmTokenRequest {
 
-    public static final String TAG = GcmTokenRequest.class.getSimpleName();
-    private static final String KEY_REGISTRATION_ID = "registration_id";
+public class FcmTokenRequest {
+
+    public static final String TAG = FcmTokenRequest.class.getSimpleName();
     private static final String KEY_DEVICE_ID = "device_id";
-    private static final String GCM_API_URL = APIManager.API_URL + "gcm/";
+    private static final String KEY_REGISTRATION_ID = "registration_id";
+    public static final String KEY_FCM = "fcm";
+    private static final String FCM_API_URL = APIManager.GENERAL_URL + "fcm/";
 
     public Context mContext;
 
@@ -37,7 +37,7 @@ public class GcmTokenRequest {
      *
      * @param context Contexto de la aplicación
      */
-    public GcmTokenRequest(Context context) {
+    public FcmTokenRequest(Context context) {
         mContext = context;
     }
 
@@ -50,21 +50,27 @@ public class GcmTokenRequest {
 
         Map<String, String> params = new HashMap<>();
 
-        params.put(KEY_REGISTRATION_ID, token);
+        params.put(KEY_FCM, token);
         params.put(KEY_DEVICE_ID, deviceId);
 
-        String url = GCM_API_URL;
+        String url = FCM_API_URL;
+        Log.d(TAG, "User FCM Token: " + token);
+
         Request request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
                         PrefsManager.setGCMToken(mContext, token);
+                        PrefsManager.setSentTokenToServer(mContext, true);
+                        Log.d(TAG, "Upload FCM at server response: " + response.toString());
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                Log.i(TAG, "GCM Registration Token ");
 
             }
         });
@@ -85,7 +91,7 @@ public class GcmTokenRequest {
             Map<String, String> params = new HashMap<>();
             params.put(KEY_DEVICE_ID, deviceId);
 
-            Request request = new JsonObjectRequest(Request.Method.DELETE, GCM_API_URL +
+            Request request = new JsonObjectRequest(Request.Method.DELETE, FCM_API_URL +
                     token + "/", new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -103,5 +109,4 @@ public class GcmTokenRequest {
             VolleyManager.getInstance(mContext).addToRequestQueue(request);
         }
     }
-
 }
