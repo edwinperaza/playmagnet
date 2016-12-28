@@ -14,4 +14,10 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/tabLayoutEnabled</item>
+        <item name="tabBackground">@color/tabLayoutBackground</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
+
 </resources>

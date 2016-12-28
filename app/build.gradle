@@ -43,7 +43,7 @@ dependencies {
     // MagnetRestClient is now at bintray (jcenter)
     compile 'cl.magnet.magnetrestclient:magnetrestclient:1.1.0'
     compile 'cl.magnet.usermanager:userManager:1.0.0'
-    
+
     testCompile 'junit:junit:4.12'
 }
 

@@ -6,37 +6,43 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import com.android.volley.Request;
 
 import org.json.JSONObject;
 
+import cl.magnet.magnetrestclient.VolleyManager;
 import cl.magnet.vigia.R;
+import cl.magnet.vigia.adapters.PagerTabAdapter;
 import cl.magnet.vigia.fragments.Section1Fragment;
 import cl.magnet.vigia.fragments.Section2Fragment;
 import cl.magnet.vigia.models.user.UserRequestManager;
 import cl.magnet.vigia.network.AppResponseListener;
 import cl.magnet.vigia.utils.PrefsManager;
-import cl.magnet.magnetrestclient.VolleyManager;
 
 /**
  * The class in charge of the drawer and its fragments.
  */
-public class DrawerActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+public class DrawerActivity extends BaseActivity implements
         Section1Fragment.OnFragmentInteractionListener,
-        Section2Fragment.OnFragmentInteractionListener{
+        Section2Fragment.OnFragmentInteractionListener {
+
+    private PagerTabAdapter mPagerTabAdapter;
+    private Context mContext;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,58 +51,45 @@ public class DrawerActivity extends BaseActivity
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbarTitleColor));
+
+        // Create the adapter that will return a fragment for each of the two
+        // primary sections of the activity.
+        mPagerTabAdapter = new PagerTabAdapter(getSupportFragmentManager(), DrawerActivity.this);
+
+        // Set up the ViewPager with the pager adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mPagerTabAdapter);
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
         //Setting floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Launch Camera", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //Setting up default fragment.
-        Fragment fragment = Section1Fragment.newInstance(null, null);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFrame, fragment);
-        ft.commit();
-
-        Context context = getApplicationContext();
-
-        //Setting navigation drawer greeting.
-        String fullName = PrefsManager.getFullName(context);
-
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView textView = (TextView) headerView.findViewById(R.id.drawer_hello_textView);
-        textView.setText(String.format(getResources().getString(R.string.drawer_hello_user), fullName));
+        mContext = getApplicationContext();
 
         //If there is no user logged in we go to the Login Activity
         //TODO: Use method UserManager.isUserLogged instead
-        if(!PrefsManager.isUserLogged(context)){
-            startActivityClosingAllOthers(LoginActivity.class);
-        }
+//        if(!PrefsManager.isUserLogged(context)){
+//            startActivityClosingAllOthers(LoginActivity.class);
+//        }
 
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+
             super.onBackPressed();
-        }
+
     }
 
     @Override
@@ -119,39 +112,6 @@ public class DrawerActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int itemId = item.getItemId();
-
-        Fragment fragment = getFragmentAt(itemId);
-
-        if(fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.mainFrame, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private Fragment getFragmentAt(int itemId) {
-        //Populate with respective fragments
-        switch(itemId) {
-            case R.id.nav_camara: return Section1Fragment.newInstance(null, null);
-            case R.id.nav_gallery: return Section2Fragment.newInstance(null, null);
-            case R.id.nav_logout: logout();
-            case R.id.nav_slideshow:
-            case R.id.nav_manage:
-            case R.id.nav_share:
-            case R.id.nav_send:
-            default: return null;
-        }
     }
 
     public void logout(){

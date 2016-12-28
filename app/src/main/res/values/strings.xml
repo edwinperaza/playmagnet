@@ -51,4 +51,9 @@
     <string name="error_no_internet">There is no internet connection</string>
     <string name="error_wrong_credentials">Invalid email or password</string>
 
+    <string-array name="tabs_title">
+        <item>Reportes</item>
+        <item>Mapa</item>
+    </string-array>
+
 </resources>
