@@ -20,6 +20,7 @@
         <activity
             android:name="cl.magnet.vigia.activities.DrawerActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,13 +30,16 @@
         </activity>
         <activity
             android:name="cl.magnet.vigia.activities.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="cl.magnet.vigia.activities.UpgradeRequiredActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_upgrade_required" >
         </activity>
         <activity android:name="cl.magnet.vigia.activities.RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_register" >
         </activity>
 
