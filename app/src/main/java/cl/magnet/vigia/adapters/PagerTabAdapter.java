@@ -4,11 +4,9 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import cl.magnet.vigia.R;
 import cl.magnet.vigia.fragments.ReportListFragment;
-import cl.magnet.vigia.fragments.Section1Fragment;
 import cl.magnet.vigia.fragments.Section2Fragment;
 
 /**
@@ -33,17 +31,16 @@ public class PagerTabAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return ReportListFragment.newInstance("", "");
+                return ReportListFragment.newInstance("");
             case 1:
                 return Section2Fragment.newInstance("", "");
             default:
-                return ReportListFragment.newInstance("", "");
+                return ReportListFragment.newInstance("");
         }
     }
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
         return PAGE_COUNT;
     }
 
