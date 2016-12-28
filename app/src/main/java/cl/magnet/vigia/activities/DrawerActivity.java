@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import cl.magnet.magnetrestclient.VolleyManager;
 import cl.magnet.vigia.R;
 import cl.magnet.vigia.adapters.PagerTabAdapter;
+import cl.magnet.vigia.fragments.ReportListFragment;
 import cl.magnet.vigia.fragments.Section1Fragment;
 import cl.magnet.vigia.fragments.Section2Fragment;
 import cl.magnet.vigia.models.user.UserRequestManager;
@@ -32,7 +33,8 @@ import cl.magnet.vigia.utils.PrefsManager;
  */
 public class DrawerActivity extends BaseActivity implements
         Section1Fragment.OnFragmentInteractionListener,
-        Section2Fragment.OnFragmentInteractionListener {
+        Section2Fragment.OnFragmentInteractionListener,
+        ReportListFragment.OnFragmentInteractionListener{
 
     private PagerTabAdapter mPagerTabAdapter;
     private Context mContext;
@@ -147,4 +149,7 @@ public class DrawerActivity extends BaseActivity implements
         // Handle fragment interaction
     }
 
+    @Override
+    public void onReportClickListener(int reportId) {
+    }
 }

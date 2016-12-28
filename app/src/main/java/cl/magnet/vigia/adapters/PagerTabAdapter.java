@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 import cl.magnet.vigia.R;
+import cl.magnet.vigia.fragments.ReportListFragment;
 import cl.magnet.vigia.fragments.Section1Fragment;
 import cl.magnet.vigia.fragments.Section2Fragment;
 
@@ -32,13 +33,11 @@ public class PagerTabAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                Log.d("TABPAGER", "getItem: " + String.valueOf(position));
-                return Section1Fragment.newInstance("", "");
+                return ReportListFragment.newInstance("", "");
             case 1:
-                Log.d("TABPAGER", "getItem: " + String.valueOf(position));
                 return Section2Fragment.newInstance("", "");
             default:
-                return Section1Fragment.newInstance("", "");
+                return ReportListFragment.newInstance("", "");
         }
     }
 

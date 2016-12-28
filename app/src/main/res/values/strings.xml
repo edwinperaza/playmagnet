@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment_1">Hello blank fragment 1</string>
     <string name="hello_blank_fragment_2">Hello blank fragment 2</string>
 
@@ -55,5 +55,8 @@
         <item>Reportes</item>
         <item>Mapa</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
