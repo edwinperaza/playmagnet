@@ -52,7 +52,7 @@ public class ReportListAdapter extends ArrayAdapter<Report> {
         ImageView mReportThumbnailImageView;
 
         public ViewHolder(View view) {
-            mReportTitleTextView = (TextView) view.findViewById(R.id.tv_report_title);
+            mReportTitleTextView = (TextView) view.findViewById(R.id.tv_report_item_title);
             mReportThumbnailImageView = (ImageView) view.findViewById(R.id.iv_report_list_image);
         }
 

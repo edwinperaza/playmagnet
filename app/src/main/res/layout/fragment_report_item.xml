@@ -1,28 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_vertical_margin"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:layout_marginTop="8dp"
+    android:background="@drawable/report_item_list_background">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:id="@+id/lo_report_item_header"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/iv_report_item_icon"
+            android:layout_gravity="center_vertical|center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/report_item_linear_layout_header_border">
+
+            <TextView
+                android:text="Residuos de Agua en Laguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_report_item_title"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:text="Camino El Cerro 238"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_report_item_address" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_report_item_location"
+                android:text="Paine, RM, Santiago, Chile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Ver en Mapa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_map_message"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/reportItemHeaderMapTitle" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_mylocation"
+                android:id="@+id/iv_report_item_location_icon"
+                android:layout_gravity="center_vertical|center_horizontal" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_report_list_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:padding="5dp" />
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_below="@+id/lo_report_item_header"
+        app:srcCompat="@drawable/image_sample"
+        android:scaleType="centerCrop" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Titulo por defecto"
-        android:id="@+id/tv_report_title"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:textColor="@color/colorPrimaryDark"/>
-
-</LinearLayout>
+</RelativeLayout>

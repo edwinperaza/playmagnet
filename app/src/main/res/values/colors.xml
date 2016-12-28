@@ -7,4 +7,6 @@
     <color name="tabLayoutBackground">#87ccca</color>
     <color name="tabLayoutEnabled">@android:color/darker_gray</color>
     <color name="toolbarBackground">@android:color/white</color>
+    <color name="reportItemHeaderMapTitle">#1d2553</color>
+    <color name="reportItemHeaderBorderRight">#1d2553</color>
 </resources>
