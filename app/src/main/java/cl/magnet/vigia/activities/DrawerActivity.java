@@ -2,6 +2,7 @@ package cl.magnet.vigia.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -151,5 +152,7 @@ public class DrawerActivity extends BaseActivity implements
 
     @Override
     public void onReportClickListener(int reportId) {
+        Intent intent = new Intent(getApplicationContext(), ReportDetailActivity.class);
+        startActivity(intent);
     }
 }

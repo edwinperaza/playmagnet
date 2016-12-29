@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -59,6 +60,12 @@ public class ReportListFragment extends Fragment {
         mReportArrayList = Report.createReportList(20);
         mReportListAdapter = new ReportListAdapter(getActivity(), mReportArrayList);
         mReportListView.setAdapter(mReportListAdapter);
+        mReportListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mListener.onReportClickListener(1);
+            }
+        });
         return rootView;
     }
 
