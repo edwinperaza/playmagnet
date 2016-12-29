@@ -26,6 +26,7 @@
         android:layout_alignParentBottom="true"
         android:dividerHeight="6dp" />
 
+
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 </RelativeLayout>

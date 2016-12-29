@@ -44,7 +44,7 @@ public class ReportListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReportArrayList = new ArrayList<>();
-        mReportListAdapter = new ReportListAdapter(getActivity(), mReportArrayList);
+//        mReportListAdapter = new ReportListAdapter(getActivity(), mReportArrayList);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(FRAGMENT_TITLE);
         }
@@ -55,17 +55,13 @@ public class ReportListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_report_list, container, false);
         mReportListView = (ListView) rootView.findViewById(R.id.lv_report_list);
+
+        mReportArrayList = Report.createReportList(20);
+        mReportListAdapter = new ReportListAdapter(getActivity(), mReportArrayList);
         mReportListView.setAdapter(mReportListAdapter);
-        populateReports();
         return rootView;
     }
 
-    private void populateReports () {
-        for (int i = 0; i < 10; i++) {
-            Report report = new Report(i, "Reporte Nro: " + String.valueOf(i), "");
-            mReportListAdapter.add(report);
-        }
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(int reportId) {

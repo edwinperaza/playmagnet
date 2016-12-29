@@ -1,5 +1,7 @@
 package cl.magnet.vigia.models.report;
 
+import java.util.ArrayList;
+
 /**
  * Created by edwinperaza on 12/28/16.
  */
@@ -41,5 +43,15 @@ public class Report {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public static ArrayList<Report> createReportList(int numContacts) {
+        ArrayList<Report> reports = new ArrayList<>();
+
+        for (int i = 1; i <= numContacts; i++) {
+            reports.add(new Report(i, "Reporte Nro. " + String.valueOf(i), ""));
+        }
+
+        return reports;
     }
 }
