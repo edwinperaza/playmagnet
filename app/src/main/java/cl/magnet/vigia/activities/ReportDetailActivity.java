@@ -1,5 +1,6 @@
 package cl.magnet.vigia.activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import cl.magnet.vigia.R;
 
@@ -17,6 +19,7 @@ public class ReportDetailActivity extends AppCompatActivity {
 
     private ImageView mReportAcceptImageView;
     private ImageView mReportDeniedImageView;
+    private TextView mReportShareTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class ReportDetailActivity extends AppCompatActivity {
 
         mReportAcceptImageView = (ImageView) findViewById(R.id.iv_report_accept);
         mReportDeniedImageView = (ImageView) findViewById(R.id.iv_report_denied);
+        mReportShareTextView = (TextView) findViewById(R.id.tv_report_item_share);
 
         mReportAcceptImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +53,22 @@ public class ReportDetailActivity extends AppCompatActivity {
             }
         });
 
+        mReportShareTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareAction();
+            }
+        });
     }
+
+    public void shareAction(){
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        String invitationCode = "Información relacionada al reporte en pantalla";
+        share.putExtra(Intent.EXTRA_TEXT, invitationCode);
+        startActivity(Intent.createChooser(share, "Vigia App"));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
