@@ -120,6 +120,8 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:divider="@drawable/report_item_linear_layout_bottom_border"
+                android:background="@drawable/report_item_linear_layout_bottom_border"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -229,9 +231,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:weightSum="1"
-                android:gravity="center_vertical|center_horizontal"
-                >
-                <!--android:layout_above="@+id/lo_report_item_share"-->
+                android:gravity="center_vertical|center_horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
