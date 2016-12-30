@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Vigia</string>
+    <string name="app_name">Play Magnet</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -52,8 +52,8 @@
     <string name="error_wrong_credentials">Invalid email or password</string>
 
     <string-array name="tabs_title">
-        <item>Reportes</item>
-        <item>Mapa</item>
+        <item>Audios</item>
+        <item>Grabar</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

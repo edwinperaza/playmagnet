@@ -36,7 +36,7 @@
             android:background="@drawable/report_item_linear_layout_header_border">
 
             <TextView
-                android:text="Residuos de Agua en Laguna"
+                android:text="Titulo del audio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_report_item_title"
@@ -44,16 +44,10 @@
                 android:textAllCaps="true" />
 
             <TextView
-                android:text="Camino El Cerro 238"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_report_item_address" />
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_report_item_location"
-                android:text="Paine, RM, Santiago, Chile" />
+                android:text="Comentario" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,34 +55,17 @@
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:text="Ver en Mapa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_map_message"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/reportItemHeaderMapTitle" />
+            android:orientation="vertical"
+            android:gravity="center_vertical|center_horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_mylocation"
-                android:id="@+id/iv_report_item_location_icon"
-                android:layout_gravity="center_vertical|center_horizontal" />
+                app:srcCompat="@android:drawable/ic_media_play"
+                android:id="@+id/iv_report_item_location_icon" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_report_list_image"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_below="@+id/lo_report_item_header"
-        app:srcCompat="@drawable/image_sample"
-        android:scaleType="centerCrop" />
 
 </RelativeLayout>
