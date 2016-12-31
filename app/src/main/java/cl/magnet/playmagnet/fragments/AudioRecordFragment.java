@@ -6,9 +6,10 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.jar.Manifest;
 
 import cl.magnet.playmagnet.R;
-import cl.magnet.playmagnet.activities.DrawerActivity;
+import cl.magnet.playmagnet.models.audio.Audio;
+import cl.magnet.playmagnet.models.audio.AudioUploader;
 
 public class AudioRecordFragment extends Fragment {
     private static final String FRAGMENT_TITLE = "fragment_title";
@@ -66,7 +66,7 @@ public class AudioRecordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_section1, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_section1, container, false);
         buttonStart = (Button) rootView.findViewById(R.id.button);
         buttonStop = (Button) rootView.findViewById(R.id.button2);
         buttonPlayLastRecordAudio = (Button) rootView.findViewById(R.id.button3);
@@ -104,8 +104,8 @@ public class AudioRecordFragment extends Fragment {
                     buttonStart.setEnabled(false);
                     buttonStop.setEnabled(true);
 
-                    Toast.makeText(getActivity(), "Recording started",
-                            Toast.LENGTH_LONG).show();
+                    Snackbar.make(view, "Grabando Audio", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 } else {
                     requestPermission();
                 }
@@ -122,8 +122,8 @@ public class AudioRecordFragment extends Fragment {
                 buttonStart.setEnabled(true);
                 buttonStopPlayingRecording.setEnabled(false);
 
-                Toast.makeText(getActivity(), "Recording Completed",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make(view, "Grabación de Audio finalizada", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -137,6 +137,10 @@ public class AudioRecordFragment extends Fragment {
                 buttonStopPlayingRecording.setEnabled(true);
 
                 mediaPlayer = new MediaPlayer();
+                Log.d("AudioRecordFragment", AudioSavePathInDevice );
+                Audio audio = new Audio(1,"titulo", AudioSavePathInDevice, "comentario");
+                AudioUploader lotUploader = new AudioUploader(getActivity().getApplicationContext(), audio);
+                lotUploader.upload();
                 try {
                     mediaPlayer.setDataSource(AudioSavePathInDevice);
                     mediaPlayer.prepare();
@@ -145,8 +149,8 @@ public class AudioRecordFragment extends Fragment {
                 }
 
                 mediaPlayer.start();
-                Toast.makeText(getActivity(), "Recording Playing",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make(view, "Reproduciendo grabación", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -254,4 +258,6 @@ public class AudioRecordFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onReportClickListener(int reportId);
     }
+
+
 }

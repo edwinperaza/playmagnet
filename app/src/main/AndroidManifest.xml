@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cl.magnet.playmagnet">
 
@@ -12,7 +13,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
 
-    <!-- <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cl.magnet.playmagnet.activities.ReportDetailActivity"
+            android:name="cl.magnet.playmagnet.activities.AudioDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

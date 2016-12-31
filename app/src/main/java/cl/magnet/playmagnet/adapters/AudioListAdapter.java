@@ -17,11 +17,11 @@ import cl.magnet.playmagnet.models.audio.Audio;
  * Created by edwinperaza on 12/28/16.
  */
 
-public class ReportListAdapter extends ArrayAdapter<Audio> {
+public class AudioListAdapter extends ArrayAdapter<Audio> {
 
     private List<Audio> mAudioList;
 
-    public ReportListAdapter(Context context, List<Audio> audioList) {
+    public AudioListAdapter(Context context, List<Audio> audioList) {
         super(context, 0, audioList);
         mAudioList = audioList;
     }
@@ -32,7 +32,7 @@ public class ReportListAdapter extends ArrayAdapter<Audio> {
         Audio audio = mAudioList.get(position);
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_report_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_audio_item, parent, false);
 
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
@@ -51,7 +51,7 @@ public class ReportListAdapter extends ArrayAdapter<Audio> {
 
         public ViewHolder(View view) {
             mReportTitleTextView = (TextView) view.findViewById(R.id.tv_report_item_title);
-            mReportThumbnailImageView = (ImageView) view.findViewById(R.id.iv_report_list_image);
+//            mReportThumbnailImageView = (ImageView) view.findViewById(R.id.iv_report_list_image);
         }
 
         public void setStory(Audio audio, Context context) {
