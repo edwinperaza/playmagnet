@@ -52,7 +52,7 @@
     <string name="error_wrong_credentials">Invalid email or password</string>
 
     <string-array name="tabs_title">
-        <item>Audios</item>
+        <item>Listado</item>
         <item>Grabar</item>
     </string-array>
 

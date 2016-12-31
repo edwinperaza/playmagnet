@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,8 +24,8 @@ public class AudioDetailActivity extends AppCompatActivity {
 
     private TextView mAudioTitleTextView;
     private TextView mAudioCommentTextView;
-    private ImageView mAudioPlayImageView;
-    private ImageView mAudioPauseImageView;
+    private ImageButton mAudioPlayImageView;
+    private ImageButton mAudioPauseImageView;
     MediaPlayer mediaplayer;
 
     @Override
@@ -41,8 +42,10 @@ public class AudioDetailActivity extends AppCompatActivity {
 
         mAudioTitleTextView = (TextView) findViewById(R.id.tv_audio_title);
         mAudioCommentTextView = (TextView) findViewById(R.id.tv_audio_comment);
-        mAudioPlayImageView = (ImageView) findViewById(R.id.iv_play_audio);
-        mAudioPauseImageView = (ImageView) findViewById(R.id.iv_pause_audio);
+        mAudioPlayImageView = (ImageButton) findViewById(R.id.iv_play_audio);
+        mAudioPauseImageView = (ImageButton) findViewById(R.id.iv_pause_audio);
+        mAudioPauseImageView.setEnabled(false);
+
         String title =  getIntent().getExtras().getString("audioTitle");
         final String url =  getIntent().getExtras().getString("audioUrl");
         String comment =  getIntent().getExtras().getString("audioComment");
@@ -63,6 +66,11 @@ public class AudioDetailActivity extends AppCompatActivity {
         mAudioPlayImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                mAudioPlayImageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_play_audio_dark));
+                mAudioPauseImageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_pause_audio_light));
+                mAudioPlayImageView.setEnabled(false);
+                mAudioPauseImageView.setEnabled(true);
                 try {
 
                     mediaplayer.setDataSource(url);
@@ -85,6 +93,9 @@ public class AudioDetailActivity extends AppCompatActivity {
 
                 mediaplayer.start();
 
+                Snackbar.make(view, "Reproduciendo Audio", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+
 
             }
 
@@ -94,6 +105,13 @@ public class AudioDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mediaplayer.pause();
+                mAudioPlayImageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_play_audio_light));
+                mAudioPauseImageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_pause_audio_dark));
+                mAudioPlayImageView.setEnabled(true);
+                mAudioPauseImageView.setEnabled(false);
+                Snackbar.make(view, "Audio en Pausa", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+
             }
         });
 

@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_audio_title"
             android:textSize="24sp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginTop="16dp" />
 
 
         <TextView
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_audio_comment"
             android:textSize="24sp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginTop="16dp" />
 
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,26 +55,37 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1"
-            >
+        android:layout_marginTop="16dp">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="0.5"
-                app:srcCompat="@android:drawable/ic_media_play"
-                android:id="@+id/iv_play_audio"
+            <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_play_audio_light"
+            android:id="@+id/iv_play_audio"
+            android:layout_weight="0.5"
                 android:background="@color/tabLayoutBackground" />
 
-            <ImageView
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_weight="0.5"-->
+                <!--app:srcCompat="@drawable/ic_play_audio_light"-->
+                <!--android:id="@+id/iv_play_audio"-->
+                <!--android:background="@color/tabLayoutBackground" />-->
+
+            <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                app:srcCompat="@android:drawable/ic_media_pause"
+                app:srcCompat="@drawable/ic_pause_audio_light"
                 android:id="@+id/iv_pause_audio"
                 android:layout_weight="0.5"
-                android:background="@color/tabLayoutBackground" />
+                android:background="@color/tabLayoutBackground"
+                />
 
 
-            <!--<LinearLayout-->
+
+
+        <!--<LinearLayout-->
                 <!--android:id="@+id/lo_report_item_header"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
@@ -115,6 +128,7 @@
             <!--</LinearLayout>-->
 
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

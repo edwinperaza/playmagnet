@@ -67,108 +67,108 @@ public class AudioRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_section1, container, false);
-        buttonStart = (Button) rootView.findViewById(R.id.button);
-        buttonStop = (Button) rootView.findViewById(R.id.button2);
-        buttonPlayLastRecordAudio = (Button) rootView.findViewById(R.id.button3);
-        buttonStopPlayingRecording = (Button) rootView.findViewById(R.id.button4);
-
-        buttonStop.setEnabled(false);
-        buttonPlayLastRecordAudio.setEnabled(false);
-        buttonStopPlayingRecording.setEnabled(false);
-
-        random = new Random();
-
-        buttonStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(checkPermission()) {
-
-                    AudioSavePathInDevice =
-                            Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
-                                    CreateRandomAudioFileName(5) + "AudioRecording.3gp";
-
-                    MediaRecorderReady();
-
-                    try {
-                        mediaRecorder.prepare();
-                        mediaRecorder.start();
-                    } catch (IllegalStateException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    buttonStart.setEnabled(false);
-                    buttonStop.setEnabled(true);
-
-                    Snackbar.make(view, "Grabando Audio", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    requestPermission();
-                }
-
-            }
-        });
-
-        buttonStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaRecorder.stop();
-                buttonStop.setEnabled(false);
-                buttonPlayLastRecordAudio.setEnabled(true);
-                buttonStart.setEnabled(true);
-                buttonStopPlayingRecording.setEnabled(false);
-
-                Snackbar.make(view, "Grabación de Audio finalizada", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        buttonPlayLastRecordAudio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) throws IllegalArgumentException,
-                    SecurityException, IllegalStateException {
-
-                buttonStop.setEnabled(false);
-                buttonStart.setEnabled(false);
-                buttonStopPlayingRecording.setEnabled(true);
-
-                mediaPlayer = new MediaPlayer();
-                Log.d("AudioRecordFragment", AudioSavePathInDevice );
-                Audio audio = new Audio(1,"titulo", AudioSavePathInDevice, "comentario");
-                AudioUploader lotUploader = new AudioUploader(getActivity().getApplicationContext(), audio);
-                lotUploader.upload();
-                try {
-                    mediaPlayer.setDataSource(AudioSavePathInDevice);
-                    mediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                mediaPlayer.start();
-                Snackbar.make(view, "Reproduciendo grabación", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        buttonStopPlayingRecording.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buttonStop.setEnabled(false);
-                buttonStart.setEnabled(true);
-                buttonStopPlayingRecording.setEnabled(false);
-                buttonPlayLastRecordAudio.setEnabled(true);
-
-                if(mediaPlayer != null){
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    MediaRecorderReady();
-                }
-            }
-        });
+//        buttonStart = (Button) rootView.findViewById(R.id.button);
+//        buttonStop = (Button) rootView.findViewById(R.id.button2);
+//        buttonPlayLastRecordAudio = (Button) rootView.findViewById(R.id.button3);
+//        buttonStopPlayingRecording = (Button) rootView.findViewById(R.id.button4);
+//
+//        buttonStop.setEnabled(false);
+//        buttonPlayLastRecordAudio.setEnabled(false);
+//        buttonStopPlayingRecording.setEnabled(false);
+//
+//        random = new Random();
+//
+//        buttonStart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if(checkPermission()) {
+//
+//                    AudioSavePathInDevice =
+//                            Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
+//                                    CreateRandomAudioFileName(5) + "AudioRecording.3gp";
+//
+//                    MediaRecorderReady();
+//
+//                    try {
+//                        mediaRecorder.prepare();
+//                        mediaRecorder.start();
+//                    } catch (IllegalStateException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//
+//                    buttonStart.setEnabled(false);
+//                    buttonStop.setEnabled(true);
+//
+//                    Snackbar.make(view, "Grabando Audio", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+//                } else {
+//                    requestPermission();
+//                }
+//
+//            }
+//        });
+//
+//        buttonStop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mediaRecorder.stop();
+//                buttonStop.setEnabled(false);
+//                buttonPlayLastRecordAudio.setEnabled(true);
+//                buttonStart.setEnabled(true);
+//                buttonStopPlayingRecording.setEnabled(false);
+//
+//                Snackbar.make(view, "Grabación de Audio finalizada", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+//
+//        buttonPlayLastRecordAudio.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) throws IllegalArgumentException,
+//                    SecurityException, IllegalStateException {
+//
+//                buttonStop.setEnabled(false);
+//                buttonStart.setEnabled(false);
+//                buttonStopPlayingRecording.setEnabled(true);
+//
+//                mediaPlayer = new MediaPlayer();
+//                Log.d("AudioRecordFragment", AudioSavePathInDevice );
+//                Audio audio = new Audio(1,"titulo", AudioSavePathInDevice, "comentario");
+//                AudioUploader lotUploader = new AudioUploader(getActivity().getApplicationContext(), audio);
+//                lotUploader.upload();
+//                try {
+//                    mediaPlayer.setDataSource(AudioSavePathInDevice);
+//                    mediaPlayer.prepare();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                mediaPlayer.start();
+//                Snackbar.make(view, "Reproduciendo grabación", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+//
+//        buttonStopPlayingRecording.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                buttonStop.setEnabled(false);
+//                buttonStart.setEnabled(true);
+//                buttonStopPlayingRecording.setEnabled(false);
+//                buttonPlayLastRecordAudio.setEnabled(true);
+//
+//                if(mediaPlayer != null){
+//                    mediaPlayer.stop();
+//                    mediaPlayer.release();
+//                    MediaRecorderReady();
+//                }
+//            }
+//        });
 
         return rootView;
     }
