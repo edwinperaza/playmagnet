@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import cl.magnet.playmagnet.R;
 import cl.magnet.playmagnet.fragments.AudioListFragment;
 import cl.magnet.playmagnet.fragments.AudioRecordFragment;
-import cl.magnet.playmagnet.fragments.Section1Fragment;
-import cl.magnet.playmagnet.fragments.Section2Fragment;
 
 /**
  * Created by edwinperaza on 12/28/16.

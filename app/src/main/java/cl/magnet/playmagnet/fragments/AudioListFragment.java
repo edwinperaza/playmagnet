@@ -8,16 +8,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -46,24 +41,13 @@ public class AudioListFragment extends Fragment {
     private AudioListAdapter mAudioListAdapter;
     private ArrayList<Audio> mAudioArrayList;
     private Context mContext;
-    private ImageView mPlayImageView;
-    private ImageView mPauseImageView;
-    private ImageView mStopImageView;
 
-    MediaPlayer mediaplayer;
-    private int playbackPosition = 0;
+    private MediaPlayer mediaplayer;
     private int mSelectedPosition = -1;
     private int mPreviousSelectedPosition = -1;
     private boolean isMediaPaused = false;
     private int currentPos;
-    private int mSelectedId = -1;
-    View updateview;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private View mUpdateView;
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -82,9 +66,6 @@ public class AudioListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAudioArrayList = new ArrayList<>();
         mAudioListAdapter = new AudioListAdapter(getActivity(), mAudioArrayList);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(FRAGMENT_TITLE);
-        }
     }
 
     @Override
@@ -105,11 +86,11 @@ public class AudioListFragment extends Fragment {
                 Audio audio = (Audio) parent.getItemAtPosition(position);
                 mSelectedPosition = position;
 
-                if (updateview != null) {
-                    updateview.setBackgroundColor(Color.WHITE);
+                if (mUpdateView != null) {
+                    mUpdateView.setBackgroundColor(Color.WHITE);
                 }
 
-                updateview = view;
+                mUpdateView = view;
                 view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tabLayoutBackground));
 
                 if (isMediaPaused) {
@@ -189,22 +170,11 @@ public class AudioListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onAudioClickListener(String audioTitle, String audioUrl, String audioComment);
     }
 
     public void playAudio(String url, final View view) {

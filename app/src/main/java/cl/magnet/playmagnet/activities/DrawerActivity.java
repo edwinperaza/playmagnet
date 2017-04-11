@@ -1,41 +1,33 @@
 package cl.magnet.playmagnet.activities;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.volley.Request;
-
 import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+
 import org.json.JSONObject;
 
 import cl.magnet.magnetrestclient.VolleyManager;
 import cl.magnet.playmagnet.R;
 import cl.magnet.playmagnet.adapters.PagerTabAdapter;
-import cl.magnet.playmagnet.fragments.AudioListFragment;
 import cl.magnet.playmagnet.fragments.AudioRecordFragment;
 import cl.magnet.playmagnet.models.user.UserRequestManager;
 import cl.magnet.playmagnet.network.AppResponseListener;
 import cl.magnet.playmagnet.utils.PrefsManager;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * The class in charge of the drawer and its fragments.
  */
 public class DrawerActivity extends BaseActivity implements
-        AudioListFragment.OnFragmentInteractionListener,
         AudioRecordFragment.OnFragmentInteractionListener{
 
     public static final int RequestPermissionCode = 1;
@@ -136,11 +128,6 @@ public class DrawerActivity extends BaseActivity implements
                         }
         );
         
-    }
-
-
-    @Override
-    public void onAudioClickListener(String audioTitle, String audioUrl, String audioComment) {
     }
 
     @Override

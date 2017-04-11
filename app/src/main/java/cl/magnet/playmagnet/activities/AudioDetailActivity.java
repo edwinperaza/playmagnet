@@ -1,19 +1,15 @@
 package cl.magnet.playmagnet.activities;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -36,9 +32,6 @@ public class AudioDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbarTitleColor));
         toolbar.setTitle("Detalle de audio");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_back_arrow);
-//        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         mAudioTitleTextView = (TextView) findViewById(R.id.tv_audio_title);
         mAudioCommentTextView = (TextView) findViewById(R.id.tv_audio_comment);

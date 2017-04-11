@@ -1,7 +1,5 @@
 package cl.magnet.playmagnet.models.audio;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,18 +57,6 @@ public class Audio {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public static ArrayList<Audio> createAudioList(int numContacts) {
-        ArrayList<Audio> audios = new ArrayList<>();
-
-        audios.add(
-                new Audio(1, "Chantaje - Shakira ft Maluma",
-                        "http://insta.magnet.cl/uploads/audios/audios/BLH9CKShakira%20-%20Chantaje%20ft.%20Maluma.mp3", ""));
-        audios.add(
-                new Audio(2, "RadioHead",
-                        "http://insta.magnet.cl/uploads/audios/audios/00N38102-radiohead-the_trickster-eNT.mp3", ""));
-        return audios;
     }
 
     public static ArrayList<Audio> fromJsonArray(JSONArray jsonArrayAudio) {
