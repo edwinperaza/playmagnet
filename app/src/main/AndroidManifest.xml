@@ -49,6 +49,9 @@
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f62d6145986336b3648497ebd8c1d502e82f9f3f" />
     </application>
 
 </manifest>

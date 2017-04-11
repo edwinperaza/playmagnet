@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import cl.magnet.magnetrestclient.VolleyManager;
@@ -49,6 +51,7 @@ public class DrawerActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
