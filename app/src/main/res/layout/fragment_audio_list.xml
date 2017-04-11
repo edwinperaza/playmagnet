@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ccc">
 
     <ProgressBar
         android:id="@+id/pbLoading"
-        android:visibility="invisible"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <!--<android.support.v4.widget.SwipeRefreshLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/swipeRefreshStories"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <ListView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_report_list"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:dividerHeight="6dp" />
+        android:visibility="invisible" />
 
-
-    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+    <GridView
+        android:id="@+id/gv_points_exchange_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:horizontalSpacing="2dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp"
+        android:visibility="visible" />
 
 </RelativeLayout>

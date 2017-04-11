@@ -6,8 +6,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cl.magnet.magnetrestclient.requests.MagnetJsonObjectRequest;
 import cl.magnet.playmagnet.network.APIManager;
 import cl.magnet.playmagnet.network.AppResponseListener;
+
+import static com.android.volley.Request.*;
 
 /**
  * Created by yaniv on 10/28/15.
@@ -53,7 +56,7 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, USER_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Method.POST, USER_API_URL, params, responseListener, responseListener);
     }
 
     /**
@@ -77,7 +80,7 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Method.POST, LOGIN_API_URL, params, responseListener, responseListener);
 
     }
 
@@ -87,9 +90,9 @@ public class UserRequestManager extends APIManager {
      * @param responseListener The listener for on success and error callbacks
      * @return The created JsonObjectRequest for logging out the user webservice
      */
-    public static JsonObjectRequest userLogOutRequest(AppResponseListener<JSONObject> responseListener) {
-
-        return new JsonObjectRequest(Request.Method.DELETE, LOGOUT_API_URL, responseListener, responseListener);
+    public static MagnetJsonObjectRequest userLogOutRequest(AppResponseListener<JSONObject> responseListener) {
+        JSONObject params = new JSONObject();
+        return new MagnetJsonObjectRequest(Method.DELETE, LOGOUT_API_URL,params, responseListener, responseListener);
 
     }
 
@@ -109,7 +112,7 @@ public class UserRequestManager extends APIManager {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, RECOVER_PASSWORD_API_URL, params, responseListener, responseListener);
+        return new JsonObjectRequest(Method.POST, RECOVER_PASSWORD_API_URL, params, responseListener, responseListener);
 
     }
 }

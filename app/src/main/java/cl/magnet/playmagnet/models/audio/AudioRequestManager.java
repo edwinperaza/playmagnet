@@ -7,6 +7,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+import cl.magnet.magnetrestclient.requests.MagnetJsonObjectRequest;
 import cl.magnet.playmagnet.network.APIManager;
 import cl.magnet.playmagnet.network.AppResponseListener;
 
@@ -18,11 +19,11 @@ public class AudioRequestManager extends APIManager {
 
     public static final String API_AUDIO_URL = GENERAL_URL + "audios/";
 
-    public static JsonObjectRequest getAudioList(AppResponseListener<JSONObject> responseListener) {
+    public static MagnetJsonObjectRequest getAudioList(AppResponseListener<JSONObject> responseListener) {
 
         JSONObject params = new JSONObject();
         Log.d("Audio Request", API_AUDIO_URL);
-        return new JsonObjectRequest(Request.Method.GET, API_AUDIO_URL, responseListener, responseListener);
+        return new MagnetJsonObjectRequest(Request.Method.GET, API_AUDIO_URL, params, responseListener, responseListener);
 
     }
 }

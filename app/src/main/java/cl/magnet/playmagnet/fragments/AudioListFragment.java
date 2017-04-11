@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -37,7 +38,8 @@ import cl.magnet.playmagnet.network.AppResponseListener;
 public class AudioListFragment extends Fragment {
     private static final String FRAGMENT_TITLE = "fragment_title";
 
-    private ListView mReportListView;
+//    private ListView mReportListView;
+    private GridView mReportListView;
     private AudioListAdapter mAudioListAdapter;
     private ArrayList<Audio> mAudioArrayList;
     private Context mContext;
@@ -80,7 +82,8 @@ public class AudioListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_audio_list, container, false);
-        mReportListView = (ListView) rootView.findViewById(R.id.lv_report_list);
+//        mReportListView = (ListView) rootView.findViewById(R.id.lv_report_list);
+        mReportListView = (GridView) rootView.findViewById(R.id.gv_points_exchange_grid);
 
         mediaplayer = new MediaPlayer();
         mediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
