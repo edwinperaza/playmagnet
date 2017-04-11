@@ -138,11 +138,6 @@ public class DrawerActivity extends BaseActivity implements
 
     @Override
     public void onAudioClickListener(String audioTitle, String audioUrl, String audioComment) {
-        Intent intent = new Intent(getApplicationContext(), AudioDetailActivity.class);
-        intent.putExtra("audioTitle", audioTitle);
-        intent.putExtra("audioUrl", audioUrl);
-        intent.putExtra("audioComment", audioComment);
-        startActivity(intent);
     }
 
     @Override

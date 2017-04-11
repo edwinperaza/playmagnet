@@ -1,6 +1,7 @@
 package cl.magnet.playmagnet.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class AudioListAdapter extends ArrayAdapter<Audio> {
 
         public void setStory(Audio audio, Context context) {
             this.mReportTitleTextView.setText(audio.getTitle());
+            Log.d("AudioList", audio.getComment());
 //            Picasso.with(context).load(audio.getAudioUrl())
 //                    .fit()
 //                    .centerCrop()
