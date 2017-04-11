@@ -1,24 +1,26 @@
-# Android Project Template  #
+# Play Magnet - Insta  #
 
-This template will quickly help you create an Android Project with special features.
+This app let you play some audio files from magnet server
 
-### What does this template include? ###
+### What can you do? ###
 
-* Navigation Drawer
-* Login and Register users
-* HTTP Error Manager (401 and 426)
-* API Request Managers
-* Shared Preferences Manager
-* Gradle dependencies
-([Magnet Rest Client](https://github.com/magnet-cl/MagnetRestClient) and 
-[User Manager](https://github.com/magnet-cl/AndroidUserManager))
-* Default classes (Adapter and Service)
-* Folder and Package Organization
+* Play Audio File
+* Pause Audio File
+* Stop Audio File
 
-### What does it not include? ###
+### Coming soon ###
 
-* ORM
+* Upload your own audios
+* User management
+* Share audios url
 
-### How to set up the template? ###
+### Libraries ###
+* [Magnet Rest Client](https://github.com/magnet-cl/MagnetRestClient)
+* [User Manager](https://github.com/magnet-cl/AndroidUserManager)
+* [Volley](https://developer.android.com/training/volley/index.html)
+* [crashlytics](https://try.crashlytics.com/)
+* [picasso](http://square.github.io/picasso/)
 
-Just download the zip file, refactor the Package name and you are good to go!
+### License ###
+
+* [Apache Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
