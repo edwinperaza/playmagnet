@@ -47,7 +47,7 @@ public class DrawerActivity extends BaseActivity implements
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbarTitleColor));
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.tabLayoutBackground));
 
         // Create the adapter that will return a fragment for each of the two
         // primary sections of the activity.

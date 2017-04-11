@@ -4,7 +4,7 @@
     <color name="colorPrimary">@android:color/white</color>
     <color name="colorAccent">#ef4623</color>
     <color name="toolbarTitleColor">@android:color/darker_gray</color>
-    <color name="tabLayoutBackground">#87ccca</color>
+    <color name="tabLayoutBackground">#28AFCE</color>
     <color name="tabLayoutEnabled">@android:color/darker_gray</color>
     <color name="toolbarBackground">@android:color/white</color>
     <color name="reportItemHeaderMapTitle">#1d2553</color>
