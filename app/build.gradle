@@ -31,7 +31,7 @@ android {
             buildConfigField "String", "BASE_URL", "\"http://insta.magnet.cl/\""
         }
         release {
-            buildConfigField "String", "BASE_URL", "\"http://production.magnet.cl/\""
+            buildConfigField "String", "BASE_URL", "\"http://insta.magnet.cl/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -51,7 +51,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
-//    compile 'com.mcxiaoke.volley:library:1.0.15'
 //    compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'cl.magnet.magnetrestclient:magnetrestclient:1.1.2'
